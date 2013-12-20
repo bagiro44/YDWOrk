@@ -1,0 +1,476 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		77D9FB2D18646C920001B8B0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D9FB2C18646C920001B8B0 /* Foundation.framework */; };
+		77D9FB2F18646C920001B8B0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D9FB2E18646C920001B8B0 /* CoreGraphics.framework */; };
+		77D9FB3118646C920001B8B0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D9FB3018646C920001B8B0 /* UIKit.framework */; };
+		77D9FB3718646C920001B8B0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 77D9FB3518646C920001B8B0 /* InfoPlist.strings */; };
+		77D9FB3918646C920001B8B0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9FB3818646C920001B8B0 /* main.m */; };
+		77D9FB3D18646C920001B8B0 /* YDWAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9FB3C18646C920001B8B0 /* YDWAppDelegate.m */; };
+		77D9FB4018646C920001B8B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77D9FB3E18646C920001B8B0 /* Main.storyboard */; };
+		77D9FB4318646C920001B8B0 /* YDWViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9FB4218646C920001B8B0 /* YDWViewController.m */; };
+		77D9FB4518646C920001B8B0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77D9FB4418646C920001B8B0 /* Images.xcassets */; };
+		77D9FB4C18646C920001B8B0 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D9FB4B18646C920001B8B0 /* XCTest.framework */; };
+		77D9FB4D18646C920001B8B0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D9FB2C18646C920001B8B0 /* Foundation.framework */; };
+		77D9FB4E18646C920001B8B0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D9FB3018646C920001B8B0 /* UIKit.framework */; };
+		77D9FB5618646C920001B8B0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 77D9FB5418646C920001B8B0 /* InfoPlist.strings */; };
+		77D9FB5818646C920001B8B0 /* YandxDemoWOrkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9FB5718646C920001B8B0 /* YandxDemoWOrkTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		77D9FB4F18646C920001B8B0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77D9FB2118646C920001B8B0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 77D9FB2818646C920001B8B0;
+			remoteInfo = YandxDemoWOrk;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		77D9FB2918646C920001B8B0 /* YandxDemoWOrk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YandxDemoWOrk.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		77D9FB2C18646C920001B8B0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		77D9FB2E18646C920001B8B0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		77D9FB3018646C920001B8B0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		77D9FB3418646C920001B8B0 /* YandxDemoWOrk-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "YandxDemoWOrk-Info.plist"; sourceTree = "<group>"; };
+		77D9FB3618646C920001B8B0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		77D9FB3818646C920001B8B0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		77D9FB3A18646C920001B8B0 /* YandxDemoWOrk-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YandxDemoWOrk-Prefix.pch"; sourceTree = "<group>"; };
+		77D9FB3B18646C920001B8B0 /* YDWAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YDWAppDelegate.h; sourceTree = "<group>"; };
+		77D9FB3C18646C920001B8B0 /* YDWAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YDWAppDelegate.m; sourceTree = "<group>"; };
+		77D9FB3F18646C920001B8B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		77D9FB4118646C920001B8B0 /* YDWViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YDWViewController.h; sourceTree = "<group>"; };
+		77D9FB4218646C920001B8B0 /* YDWViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YDWViewController.m; sourceTree = "<group>"; };
+		77D9FB4418646C920001B8B0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		77D9FB4A18646C920001B8B0 /* YandxDemoWOrkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YandxDemoWOrkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		77D9FB4B18646C920001B8B0 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		77D9FB5318646C920001B8B0 /* YandxDemoWOrkTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "YandxDemoWOrkTests-Info.plist"; sourceTree = "<group>"; };
+		77D9FB5518646C920001B8B0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		77D9FB5718646C920001B8B0 /* YandxDemoWOrkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YandxDemoWOrkTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		77D9FB2618646C920001B8B0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77D9FB2F18646C920001B8B0 /* CoreGraphics.framework in Frameworks */,
+				77D9FB3118646C920001B8B0 /* UIKit.framework in Frameworks */,
+				77D9FB2D18646C920001B8B0 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		77D9FB4718646C920001B8B0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77D9FB4C18646C920001B8B0 /* XCTest.framework in Frameworks */,
+				77D9FB4E18646C920001B8B0 /* UIKit.framework in Frameworks */,
+				77D9FB4D18646C920001B8B0 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		77D9FB2018646C920001B8B0 = {
+			isa = PBXGroup;
+			children = (
+				77D9FB3218646C920001B8B0 /* YandxDemoWOrk */,
+				77D9FB5118646C920001B8B0 /* YandxDemoWOrkTests */,
+				77D9FB2B18646C920001B8B0 /* Frameworks */,
+				77D9FB2A18646C920001B8B0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		77D9FB2A18646C920001B8B0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				77D9FB2918646C920001B8B0 /* YandxDemoWOrk.app */,
+				77D9FB4A18646C920001B8B0 /* YandxDemoWOrkTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		77D9FB2B18646C920001B8B0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				77D9FB2C18646C920001B8B0 /* Foundation.framework */,
+				77D9FB2E18646C920001B8B0 /* CoreGraphics.framework */,
+				77D9FB3018646C920001B8B0 /* UIKit.framework */,
+				77D9FB4B18646C920001B8B0 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		77D9FB3218646C920001B8B0 /* YandxDemoWOrk */ = {
+			isa = PBXGroup;
+			children = (
+				77D9FB3B18646C920001B8B0 /* YDWAppDelegate.h */,
+				77D9FB3C18646C920001B8B0 /* YDWAppDelegate.m */,
+				77D9FB3E18646C920001B8B0 /* Main.storyboard */,
+				77D9FB4118646C920001B8B0 /* YDWViewController.h */,
+				77D9FB4218646C920001B8B0 /* YDWViewController.m */,
+				77D9FB4418646C920001B8B0 /* Images.xcassets */,
+				77D9FB3318646C920001B8B0 /* Supporting Files */,
+			);
+			path = YandxDemoWOrk;
+			sourceTree = "<group>";
+		};
+		77D9FB3318646C920001B8B0 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				77D9FB3418646C920001B8B0 /* YandxDemoWOrk-Info.plist */,
+				77D9FB3518646C920001B8B0 /* InfoPlist.strings */,
+				77D9FB3818646C920001B8B0 /* main.m */,
+				77D9FB3A18646C920001B8B0 /* YandxDemoWOrk-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		77D9FB5118646C920001B8B0 /* YandxDemoWOrkTests */ = {
+			isa = PBXGroup;
+			children = (
+				77D9FB5718646C920001B8B0 /* YandxDemoWOrkTests.m */,
+				77D9FB5218646C920001B8B0 /* Supporting Files */,
+			);
+			path = YandxDemoWOrkTests;
+			sourceTree = "<group>";
+		};
+		77D9FB5218646C920001B8B0 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				77D9FB5318646C920001B8B0 /* YandxDemoWOrkTests-Info.plist */,
+				77D9FB5418646C920001B8B0 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		77D9FB2818646C920001B8B0 /* YandxDemoWOrk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 77D9FB5B18646C920001B8B0 /* Build configuration list for PBXNativeTarget "YandxDemoWOrk" */;
+			buildPhases = (
+				77D9FB2518646C920001B8B0 /* Sources */,
+				77D9FB2618646C920001B8B0 /* Frameworks */,
+				77D9FB2718646C920001B8B0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = YandxDemoWOrk;
+			productName = YandxDemoWOrk;
+			productReference = 77D9FB2918646C920001B8B0 /* YandxDemoWOrk.app */;
+			productType = "com.apple.product-type.application";
+		};
+		77D9FB4918646C920001B8B0 /* YandxDemoWOrkTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 77D9FB5E18646C920001B8B0 /* Build configuration list for PBXNativeTarget "YandxDemoWOrkTests" */;
+			buildPhases = (
+				77D9FB4618646C920001B8B0 /* Sources */,
+				77D9FB4718646C920001B8B0 /* Frameworks */,
+				77D9FB4818646C920001B8B0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				77D9FB5018646C920001B8B0 /* PBXTargetDependency */,
+			);
+			name = YandxDemoWOrkTests;
+			productName = YandxDemoWOrkTests;
+			productReference = 77D9FB4A18646C920001B8B0 /* YandxDemoWOrkTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		77D9FB2118646C920001B8B0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = YDW;
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Dmitriy Remezov";
+				TargetAttributes = {
+					77D9FB4918646C920001B8B0 = {
+						TestTargetID = 77D9FB2818646C920001B8B0;
+					};
+				};
+			};
+			buildConfigurationList = 77D9FB2418646C920001B8B0 /* Build configuration list for PBXProject "YandxDemoWOrk" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 77D9FB2018646C920001B8B0;
+			productRefGroup = 77D9FB2A18646C920001B8B0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				77D9FB2818646C920001B8B0 /* YandxDemoWOrk */,
+				77D9FB4918646C920001B8B0 /* YandxDemoWOrkTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		77D9FB2718646C920001B8B0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77D9FB4518646C920001B8B0 /* Images.xcassets in Resources */,
+				77D9FB3718646C920001B8B0 /* InfoPlist.strings in Resources */,
+				77D9FB4018646C920001B8B0 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		77D9FB4818646C920001B8B0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77D9FB5618646C920001B8B0 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		77D9FB2518646C920001B8B0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77D9FB3918646C920001B8B0 /* main.m in Sources */,
+				77D9FB3D18646C920001B8B0 /* YDWAppDelegate.m in Sources */,
+				77D9FB4318646C920001B8B0 /* YDWViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		77D9FB4618646C920001B8B0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77D9FB5818646C920001B8B0 /* YandxDemoWOrkTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		77D9FB5018646C920001B8B0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 77D9FB2818646C920001B8B0 /* YandxDemoWOrk */;
+			targetProxy = 77D9FB4F18646C920001B8B0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		77D9FB3518646C920001B8B0 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				77D9FB3618646C920001B8B0 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		77D9FB3E18646C920001B8B0 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				77D9FB3F18646C920001B8B0 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		77D9FB5418646C920001B8B0 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				77D9FB5518646C920001B8B0 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		77D9FB5918646C920001B8B0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		77D9FB5A18646C920001B8B0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		77D9FB5C18646C920001B8B0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "YandxDemoWOrk/YandxDemoWOrk-Prefix.pch";
+				INFOPLIST_FILE = "YandxDemoWOrk/YandxDemoWOrk-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		77D9FB5D18646C920001B8B0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "YandxDemoWOrk/YandxDemoWOrk-Prefix.pch";
+				INFOPLIST_FILE = "YandxDemoWOrk/YandxDemoWOrk-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		77D9FB5F18646C920001B8B0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/YandxDemoWOrk.app/YandxDemoWOrk";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "YandxDemoWOrk/YandxDemoWOrk-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "YandxDemoWOrkTests/YandxDemoWOrkTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		77D9FB6018646C920001B8B0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/YandxDemoWOrk.app/YandxDemoWOrk";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "YandxDemoWOrk/YandxDemoWOrk-Prefix.pch";
+				INFOPLIST_FILE = "YandxDemoWOrkTests/YandxDemoWOrkTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		77D9FB2418646C920001B8B0 /* Build configuration list for PBXProject "YandxDemoWOrk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				77D9FB5918646C920001B8B0 /* Debug */,
+				77D9FB5A18646C920001B8B0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		77D9FB5B18646C920001B8B0 /* Build configuration list for PBXNativeTarget "YandxDemoWOrk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				77D9FB5C18646C920001B8B0 /* Debug */,
+				77D9FB5D18646C920001B8B0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		77D9FB5E18646C920001B8B0 /* Build configuration list for PBXNativeTarget "YandxDemoWOrkTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				77D9FB5F18646C920001B8B0 /* Debug */,
+				77D9FB6018646C920001B8B0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 77D9FB2118646C920001B8B0 /* Project object */;
+}
