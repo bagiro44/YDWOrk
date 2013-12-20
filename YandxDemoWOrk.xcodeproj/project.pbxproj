@@ -21,6 +21,10 @@
 		77D9FB4E18646C920001B8B0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D9FB3018646C920001B8B0 /* UIKit.framework */; };
 		77D9FB5618646C920001B8B0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 77D9FB5418646C920001B8B0 /* InfoPlist.strings */; };
 		77D9FB5818646C920001B8B0 /* YandxDemoWOrkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9FB5718646C920001B8B0 /* YandxDemoWOrkTests.m */; };
+		77D9FB6318646CD30001B8B0 /* Settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 77D9FB6218646CD30001B8B0 /* Settings.png */; };
+		77D9FB651864717F0001B8B0 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D9FB641864717F0001B8B0 /* CoreLocation.framework */; };
+		77D9FB671864718B0001B8B0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D9FB661864718B0001B8B0 /* MapKit.framework */; };
+		77D9FB6A186478880001B8B0 /* YDWAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9FB69186478870001B8B0 /* YDWAnnotation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +57,11 @@
 		77D9FB5318646C920001B8B0 /* YandxDemoWOrkTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "YandxDemoWOrkTests-Info.plist"; sourceTree = "<group>"; };
 		77D9FB5518646C920001B8B0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		77D9FB5718646C920001B8B0 /* YandxDemoWOrkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YandxDemoWOrkTests.m; sourceTree = "<group>"; };
+		77D9FB6218646CD30001B8B0 /* Settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Settings.png; sourceTree = "<group>"; };
+		77D9FB641864717F0001B8B0 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		77D9FB661864718B0001B8B0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		77D9FB68186478870001B8B0 /* YDWAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YDWAnnotation.h; sourceTree = "<group>"; };
+		77D9FB69186478870001B8B0 /* YDWAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YDWAnnotation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +69,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77D9FB671864718B0001B8B0 /* MapKit.framework in Frameworks */,
+				77D9FB651864717F0001B8B0 /* CoreLocation.framework in Frameworks */,
 				77D9FB2F18646C920001B8B0 /* CoreGraphics.framework in Frameworks */,
 				77D9FB3118646C920001B8B0 /* UIKit.framework in Frameworks */,
 				77D9FB2D18646C920001B8B0 /* Foundation.framework in Frameworks */,
@@ -101,6 +112,8 @@
 		77D9FB2B18646C920001B8B0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				77D9FB661864718B0001B8B0 /* MapKit.framework */,
+				77D9FB641864717F0001B8B0 /* CoreLocation.framework */,
 				77D9FB2C18646C920001B8B0 /* Foundation.framework */,
 				77D9FB2E18646C920001B8B0 /* CoreGraphics.framework */,
 				77D9FB3018646C920001B8B0 /* UIKit.framework */,
@@ -112,11 +125,14 @@
 		77D9FB3218646C920001B8B0 /* YandxDemoWOrk */ = {
 			isa = PBXGroup;
 			children = (
+				77D9FB6118646CD30001B8B0 /* Resources */,
 				77D9FB3B18646C920001B8B0 /* YDWAppDelegate.h */,
 				77D9FB3C18646C920001B8B0 /* YDWAppDelegate.m */,
 				77D9FB3E18646C920001B8B0 /* Main.storyboard */,
 				77D9FB4118646C920001B8B0 /* YDWViewController.h */,
 				77D9FB4218646C920001B8B0 /* YDWViewController.m */,
+				77D9FB68186478870001B8B0 /* YDWAnnotation.h */,
+				77D9FB69186478870001B8B0 /* YDWAnnotation.m */,
 				77D9FB4418646C920001B8B0 /* Images.xcassets */,
 				77D9FB3318646C920001B8B0 /* Supporting Files */,
 			);
@@ -150,6 +166,14 @@
 				77D9FB5418646C920001B8B0 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		77D9FB6118646CD30001B8B0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				77D9FB6218646CD30001B8B0 /* Settings.png */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,6 +253,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77D9FB6318646CD30001B8B0 /* Settings.png in Resources */,
 				77D9FB4518646C920001B8B0 /* Images.xcassets in Resources */,
 				77D9FB3718646C920001B8B0 /* InfoPlist.strings in Resources */,
 				77D9FB4018646C920001B8B0 /* Main.storyboard in Resources */,
@@ -251,6 +276,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				77D9FB3918646C920001B8B0 /* main.m in Sources */,
+				77D9FB6A186478880001B8B0 /* YDWAnnotation.m in Sources */,
 				77D9FB3D18646C920001B8B0 /* YDWAppDelegate.m in Sources */,
 				77D9FB4318646C920001B8B0 /* YDWViewController.m in Sources */,
 			);
@@ -382,6 +408,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YandxDemoWOrk/YandxDemoWOrk-Prefix.pch";
 				INFOPLIST_FILE = "YandxDemoWOrk/YandxDemoWOrk-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -395,6 +422,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YandxDemoWOrk/YandxDemoWOrk-Prefix.pch";
 				INFOPLIST_FILE = "YandxDemoWOrk/YandxDemoWOrk-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface YDWViewController : UIViewController
+@interface YDWViewController : UIViewController <UIToolbarDelegate, MKMapViewDelegate, CLLocationManagerDelegate>
+
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 
 @end
