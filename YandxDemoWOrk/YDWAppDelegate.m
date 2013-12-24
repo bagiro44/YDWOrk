@@ -10,9 +10,12 @@
 
 @implementation YDWAppDelegate
 
+@synthesize DB;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    DB = [[DataSource alloc] init];
     return YES;
 }
 							

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		771E89581869820F00E5FB85 /* UNRouteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 771E89571869820F00E5FB85 /* UNRouteView.m */; };
+		771E895B186982D200E5FB85 /* YDWLocationUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 771E895A186982D200E5FB85 /* YDWLocationUpdate.m */; };
+		771E895E18698FE200E5FB85 /* DataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 771E895D18698FE200E5FB85 /* DataSource.m */; };
+		771E896E1869E28500E5FB85 /* YDWDBLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 771E896D1869E28500E5FB85 /* YDWDBLogViewController.m */; };
+		771E897A186A140400E5FB85 /* Points.m in Sources */ = {isa = PBXBuildFile; fileRef = 771E8979186A140400E5FB85 /* Points.m */; };
+		771E897D186A374100E5FB85 /* YDWFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 771E897C186A374100E5FB85 /* YDWFilterViewController.m */; };
 		77D9FB2D18646C920001B8B0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D9FB2C18646C920001B8B0 /* Foundation.framework */; };
 		77D9FB2F18646C920001B8B0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D9FB2E18646C920001B8B0 /* CoreGraphics.framework */; };
 		77D9FB3118646C920001B8B0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D9FB3018646C920001B8B0 /* UIKit.framework */; };
@@ -25,6 +31,10 @@
 		77D9FB651864717F0001B8B0 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D9FB641864717F0001B8B0 /* CoreLocation.framework */; };
 		77D9FB671864718B0001B8B0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D9FB661864718B0001B8B0 /* MapKit.framework */; };
 		77D9FB6A186478880001B8B0 /* YDWAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9FB69186478870001B8B0 /* YDWAnnotation.m */; };
+		77F7A8D7186730330095C2F1 /* GPS-Settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 77F7A8D6186730330095C2F1 /* GPS-Settings.png */; };
+		77F7A8D9186733EC0095C2F1 /* curLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 77F7A8D8186733EC0095C2F1 /* curLocation.png */; };
+		77F7A8DC18674C260095C2F1 /* TrackPointsDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 77F7A8DA18674C260095C2F1 /* TrackPointsDB.xcdatamodeld */; };
+		77F7A92818675D2D0095C2F1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F7A92718675D2D0095C2F1 /* CoreData.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +48,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		771E89561869820F00E5FB85 /* UNRouteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UNRouteView.h; sourceTree = "<group>"; };
+		771E89571869820F00E5FB85 /* UNRouteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UNRouteView.m; sourceTree = "<group>"; };
+		771E8959186982D200E5FB85 /* YDWLocationUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YDWLocationUpdate.h; sourceTree = "<group>"; };
+		771E895A186982D200E5FB85 /* YDWLocationUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YDWLocationUpdate.m; sourceTree = "<group>"; };
+		771E895C18698FE200E5FB85 /* DataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataSource.h; sourceTree = "<group>"; };
+		771E895D18698FE200E5FB85 /* DataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataSource.m; sourceTree = "<group>"; };
+		771E896C1869E28500E5FB85 /* YDWDBLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YDWDBLogViewController.h; sourceTree = "<group>"; };
+		771E896D1869E28500E5FB85 /* YDWDBLogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YDWDBLogViewController.m; sourceTree = "<group>"; };
+		771E8978186A140400E5FB85 /* Points.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Points.h; sourceTree = "<group>"; };
+		771E8979186A140400E5FB85 /* Points.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Points.m; sourceTree = "<group>"; };
+		771E897B186A374100E5FB85 /* YDWFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YDWFilterViewController.h; path = ../YDWFilterViewController.h; sourceTree = "<group>"; };
+		771E897C186A374100E5FB85 /* YDWFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YDWFilterViewController.m; path = ../YDWFilterViewController.m; sourceTree = "<group>"; };
 		77D9FB2918646C920001B8B0 /* YandxDemoWOrk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YandxDemoWOrk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77D9FB2C18646C920001B8B0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		77D9FB2E18646C920001B8B0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -62,6 +84,10 @@
 		77D9FB661864718B0001B8B0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		77D9FB68186478870001B8B0 /* YDWAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YDWAnnotation.h; sourceTree = "<group>"; };
 		77D9FB69186478870001B8B0 /* YDWAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YDWAnnotation.m; sourceTree = "<group>"; };
+		77F7A8D6186730330095C2F1 /* GPS-Settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GPS-Settings.png"; sourceTree = "<group>"; };
+		77F7A8D8186733EC0095C2F1 /* curLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = curLocation.png; sourceTree = "<group>"; };
+		77F7A8DB18674C260095C2F1 /* TrackPointsDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TrackPointsDB.xcdatamodel; sourceTree = "<group>"; };
+		77F7A92718675D2D0095C2F1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77F7A92818675D2D0095C2F1 /* CoreData.framework in Frameworks */,
 				77D9FB671864718B0001B8B0 /* MapKit.framework in Frameworks */,
 				77D9FB651864717F0001B8B0 /* CoreLocation.framework in Frameworks */,
 				77D9FB2F18646C920001B8B0 /* CoreGraphics.framework in Frameworks */,
@@ -112,6 +139,7 @@
 		77D9FB2B18646C920001B8B0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				77F7A92718675D2D0095C2F1 /* CoreData.framework */,
 				77D9FB661864718B0001B8B0 /* MapKit.framework */,
 				77D9FB641864717F0001B8B0 /* CoreLocation.framework */,
 				77D9FB2C18646C920001B8B0 /* Foundation.framework */,
@@ -129,10 +157,23 @@
 				77D9FB3B18646C920001B8B0 /* YDWAppDelegate.h */,
 				77D9FB3C18646C920001B8B0 /* YDWAppDelegate.m */,
 				77D9FB3E18646C920001B8B0 /* Main.storyboard */,
+				771E896C1869E28500E5FB85 /* YDWDBLogViewController.h */,
+				771E896D1869E28500E5FB85 /* YDWDBLogViewController.m */,
 				77D9FB4118646C920001B8B0 /* YDWViewController.h */,
 				77D9FB4218646C920001B8B0 /* YDWViewController.m */,
+				77F7A8DA18674C260095C2F1 /* TrackPointsDB.xcdatamodeld */,
+				771E897B186A374100E5FB85 /* YDWFilterViewController.h */,
+				771E897C186A374100E5FB85 /* YDWFilterViewController.m */,
+				771E8978186A140400E5FB85 /* Points.h */,
+				771E8979186A140400E5FB85 /* Points.m */,
 				77D9FB68186478870001B8B0 /* YDWAnnotation.h */,
 				77D9FB69186478870001B8B0 /* YDWAnnotation.m */,
+				771E8959186982D200E5FB85 /* YDWLocationUpdate.h */,
+				771E895A186982D200E5FB85 /* YDWLocationUpdate.m */,
+				771E895C18698FE200E5FB85 /* DataSource.h */,
+				771E895D18698FE200E5FB85 /* DataSource.m */,
+				771E89561869820F00E5FB85 /* UNRouteView.h */,
+				771E89571869820F00E5FB85 /* UNRouteView.m */,
 				77D9FB4418646C920001B8B0 /* Images.xcassets */,
 				77D9FB3318646C920001B8B0 /* Supporting Files */,
 			);
@@ -171,6 +212,8 @@
 		77D9FB6118646CD30001B8B0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				77F7A8D8186733EC0095C2F1 /* curLocation.png */,
+				77F7A8D6186730330095C2F1 /* GPS-Settings.png */,
 				77D9FB6218646CD30001B8B0 /* Settings.png */,
 			);
 			path = Resources;
@@ -256,7 +299,9 @@
 				77D9FB6318646CD30001B8B0 /* Settings.png in Resources */,
 				77D9FB4518646C920001B8B0 /* Images.xcassets in Resources */,
 				77D9FB3718646C920001B8B0 /* InfoPlist.strings in Resources */,
+				77F7A8D9186733EC0095C2F1 /* curLocation.png in Resources */,
 				77D9FB4018646C920001B8B0 /* Main.storyboard in Resources */,
+				77F7A8D7186730330095C2F1 /* GPS-Settings.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,10 +320,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				771E89581869820F00E5FB85 /* UNRouteView.m in Sources */,
 				77D9FB3918646C920001B8B0 /* main.m in Sources */,
+				77F7A8DC18674C260095C2F1 /* TrackPointsDB.xcdatamodeld in Sources */,
+				771E897A186A140400E5FB85 /* Points.m in Sources */,
+				771E896E1869E28500E5FB85 /* YDWDBLogViewController.m in Sources */,
+				771E897D186A374100E5FB85 /* YDWFilterViewController.m in Sources */,
 				77D9FB6A186478880001B8B0 /* YDWAnnotation.m in Sources */,
 				77D9FB3D18646C920001B8B0 /* YDWAppDelegate.m in Sources */,
+				771E895B186982D200E5FB85 /* YDWLocationUpdate.m in Sources */,
 				77D9FB4318646C920001B8B0 /* YDWViewController.m in Sources */,
+				771E895E18698FE200E5FB85 /* DataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,6 +541,7 @@
 				77D9FB5D18646C920001B8B0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		77D9FB5E18646C920001B8B0 /* Build configuration list for PBXNativeTarget "YandxDemoWOrkTests" */ = {
 			isa = XCConfigurationList;
@@ -497,8 +550,22 @@
 				77D9FB6018646C920001B8B0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		77F7A8DA18674C260095C2F1 /* TrackPointsDB.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				77F7A8DB18674C260095C2F1 /* TrackPointsDB.xcdatamodel */,
+			);
+			currentVersion = 77F7A8DB18674C260095C2F1 /* TrackPointsDB.xcdatamodel */;
+			path = TrackPointsDB.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 77D9FB2118646C920001B8B0 /* Project object */;
 }

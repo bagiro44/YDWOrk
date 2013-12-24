@@ -8,12 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface YDWAnnotation : NSObject <MKAnnotation>
 
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
-@property (nonatomic, copy, readonly) NSString *title;
-@property (nonatomic, copy, readonly) NSString *subtititle;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *subtititle;
 
 - (id) initWithCoordinates:(CLLocationCoordinate2D) paramCoordinates
                      title:(NSString *) paramTitle
