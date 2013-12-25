@@ -10,7 +10,7 @@
 
 
 static CGFloat const kMinUpdateDistance = 10.f;
-static NSTimeInterval const kMinUpdateTime = 90.f;
+static NSTimeInterval const kMinUpdateTime = 30.f;
 static NSTimeInterval const kMaxTimeToLive = 30.f;
 
 @implementation YDWLocationUpdate : NSObject
@@ -78,8 +78,7 @@ static NSTimeInterval const kMaxTimeToLive = 30.f;
 #pragma mark - CLLocationManager Delegate
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
-//    if (oldLocation && ([newLocation.timestamp timeIntervalSinceDate:oldLocation.timestamp] < kMinUpdateTime ||
-//                        [newLocation distanceFromLocation:oldLocation] < kMinUpdateDistance)) {
+//    if (oldLocation && ([newLocation.timestamp timeIntervalSinceDate:oldLocation.timestamp] < kMinUpdateTime)) {
 //        return;
 //    }
     

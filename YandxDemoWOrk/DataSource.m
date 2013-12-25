@@ -15,10 +15,10 @@
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *pointsEntity = [NSEntityDescription entityForName:@"Points" inManagedObjectContext:self.managedObjectContext];
-    //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"year >= %@", fromDate];
-    //NSPredicate *rp1 = [NSPredicate predicateWithFormat:@"year <= %@", toDate];
-    //predicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:predicate, rp1, nil]];
-    //[fetchRequest setPredicate:predicate];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date >= %@", fromDate];
+    NSPredicate *rp1 = [NSPredicate predicateWithFormat:@"date <= %@", toDate];
+    predicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:predicate, rp1, nil]];
+    [fetchRequest setPredicate:predicate];
     [fetchRequest setEntity:pointsEntity];
     return [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
 }

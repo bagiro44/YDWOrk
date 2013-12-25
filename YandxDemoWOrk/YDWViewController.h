@@ -40,6 +40,7 @@
 - (IBAction)showWhereIAm:(id)sender;
 - (IBAction)changeMapType:(id)sender;
 - (IBAction)clearInterval:(id)sender;
+- (void) showUserRoute;
 
 
 

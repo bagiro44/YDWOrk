@@ -61,8 +61,31 @@
 
 - (void) textFieldDidEndEditing:(UITextField *)textField
 {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"dd.MM.yyyy HH:mm:ss";
+    
+    NSTimeZone *zone = [NSTimeZone localTimeZone];
+    NSInteger interval = [zone secondsFromGMTForDate:self.datePicker.date];
+
+    if (textField.tag == 10) {
+        textField.text = [dateFormatter stringFromDate:self.datePicker.date];
+        _fromDate = [self.datePicker.date dateByAddingTimeInterval:interval];
+        NSLog(@"%@", _fromDate);
+
+    }else
+    {
+       textField.text = [dateFormatter stringFromDate:self.datePicker.date];
+        _toDate = [self.datePicker.date dateByAddingTimeInterval:interval];
+        NSLog(@"%@", _toDate);
+
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self showUserRoute];
+    });
+    
     CGRect viewFrame = self.view.frame;
-    viewFrame.origin.y += 215;   /*specify the points to move the view down*/
+    viewFrame.origin.y += 215;
     
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationBeginsFromCurrentState:YES];
@@ -74,17 +97,40 @@
     [textField resignFirstResponder];
 }
 
+- (void) showUserRoute
+{
+    NSTimeZone *zone = [NSTimeZone localTimeZone];
+    NSInteger interval = [zone secondsFromGMTForDate:self.datePicker.date];
+    [[self routeArray] removeAllObjects];
+    NSMutableArray *tempArray;
+    if (_toDate == 0 || _fromDate == 0) {
+        
+        NSDate *startDate = [[NSDate date] dateByAddingTimeInterval:-60*60*24+interval];
+        NSDate *endDate = [[NSDate date] dateByAddingTimeInterval:interval];
 
+        tempArray = [[(YDWAppDelegate *)[[UIApplication sharedApplication] delegate] DB] searchPointsFromDate:startDate toDate:endDate];
+    }else
+    {
+        tempArray = [[(YDWAppDelegate *)[[UIApplication sharedApplication] delegate] DB] searchPointsFromDate:_fromDate toDate:_toDate];
+    }
+    (nil != [self routeLine])?[[self mapView] removeOverlay:[self routeLine ]]:nil;
+    [[self mapView] removeAnnotations:[[self mapView] annotations]];
+    for (Points *item in tempArray) {
+        YDWAnnotation *tempAnnotation = [[YDWAnnotation alloc] initWithCoordinates:CLLocationCoordinate2DMake([item.latitude doubleValue], [item.longtitude doubleValue]) title:[NSString stringWithFormat:@"%@", item.date] subTitle:@""];
+        [[self routeArray] addObject:tempAnnotation];
+        [self isAnnotationHide]?nil:[[self mapView] addAnnotation:tempAnnotation];
+    }
+    [self loadRoute];
+    (nil != [self routeLine])?[[self mapView] addOverlay:[self routeLine ]]:nil;
+    tempArray = Nil;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, 162)];
-    
     self.fromDateTextField.inputView = self.datePicker;
-    
-    
-    
+    self.toDateTextField.inputView = self.datePicker;
     
     //инициализация менеджера местоположения, с возможностью работы в фоне
     self.locationBackForeManager = [[YDWLocationUpdate alloc] init];
@@ -95,37 +141,37 @@
                 
                 //настройка даты для аннотации
                 NSDate *currentDate = [NSDate dateWithTimeIntervalSinceNow:[[NSTimeZone localTimeZone] secondsFromGMT]];
-                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
-                dateFormatter.dateFormat = @"dd-MM-yyyy HH:mm:ss";
-                [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]];
+//                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//                [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
+//                dateFormatter.dateFormat = @"dd-MM-yyyy HH:mm:ss";
+//                [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]];
                 
                 //создание новой аннотации
-                YDWAnnotation *newAnnotation = [[YDWAnnotation alloc] initWithCoordinates:[location coordinate] title:[NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:currentDate]] subTitle:@""];
+//                YDWAnnotation *newAnnotation = [[YDWAnnotation alloc] initWithCoordinates:[location coordinate] title:[NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:currentDate]] subTitle:@""];
                 
-                //добавление аннотации на карту
-                isAnnotationHide?nil:[[self mapView] addAnnotation:newAnnotation];
                 
-                //добавление аннотации в трек
-                [[self routeArray] addObject:newAnnotation];
-                
-                //добавление точки в БД
-                [[(YDWAppDelegate *)[[UIApplication sharedApplication] delegate] DB] addPointDate:currentDate coordinates:location.coordinate];
-                
-                //отображение трека
-                (nil != [self routeLine])?[[self mapView] removeOverlay:[self routeLine ]]:nil;
-                [self loadRoute];
-                (nil != [self routeLine])?[[self mapView] addOverlay:[self routeLine ]]:nil;
+                dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                    //добавление точки в БД
+                    [[(YDWAppDelegate *)[[UIApplication sharedApplication] delegate] DB] addPointDate:currentDate coordinates:location.coordinate];
+                });
+                [self showUserRoute];
             });
         }
     }];
     //передача блока для работы в фоне
     [self.locationBackForeManager setLocationUpdatedInBackground:^ (CLLocation *location) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            
+            NSDate *currentDate = [NSDate dateWithTimeIntervalSinceNow:[[NSTimeZone localTimeZone] secondsFromGMT]];
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
+            dateFormatter.dateFormat = @"dd-MM-yyyy HH:mm:ss";
+            [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]];
             YDWAnnotation *newAnnotation = [[YDWAnnotation alloc] initWithCoordinates:[location coordinate] title:[NSString stringWithFormat:@"%@", [[[NSDate alloc] init] description]] subTitle:@""];
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                //добавление точки в БД
+                [[(YDWAppDelegate *)[[UIApplication sharedApplication] delegate] DB] addPointDate:currentDate coordinates:location.coordinate];
+            });
             isAnnotationHide?nil:[[self mapView] addAnnotation:newAnnotation];
-            [[self routeArray] addObject:newAnnotation];
         });
         NSLog(@"%@", location);
     }];
@@ -279,8 +325,10 @@
 
 - (IBAction)clearInterval:(id)sender
 {
-    //_fromDate = ;
-    //_toDate = ;
+    self.fromDateTextField.text = @"";
+    self.toDateTextField.text = @"";
+    _fromDate = 0;
+    _toDate = 0;
 }
 - (IBAction)settingsAction:(id)sender {
     
@@ -311,11 +359,12 @@
     //показать/скрыть аннотации на карте
     if ([self.mapView.annotations count] > 1) {
         isAnnotationHide = YES;
-        [self.mapView removeAnnotations:self.routeArray];
+        [[self mapView] removeAnnotations:[[self mapView] annotations]];
     }else
     {
         isAnnotationHide = NO;
-       [self.mapView addAnnotations:self.routeArray];
+        [self showUserRoute];
+       //[self.mapView addAnnotations:self.routeArray];
     }
     
 }
