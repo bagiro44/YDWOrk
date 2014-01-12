@@ -10,9 +10,11 @@
 #import "YDWAnnotation.h"
 #import "YDWAppDelegate.h"
 #import "YDWDBLogViewController.h"
+#import "YDWCoffeAnnotation.h"
+#import <Social/Social.h>
 
-#define METERS_PER_MILE 1609.344
-#define distanceFilterCONST 300.0
+//#define METERS_PER_MILE 1609.344
+//#define distanceFilterCONST 300.0
 
 @interface YDWViewController ()
 
@@ -30,35 +32,6 @@
     return UIBarPositionTopAttached;
 }
 
-- (BOOL) textFieldShouldReturn:(UITextField *)textField
-{
-    [textField resignFirstResponder];
-    return YES;
-}
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    UITouch *touch = [[event allTouches] anyObject];
-    if ([self.fromDateTextField isFirstResponder] && [touch view] != self.fromDateTextField)
-    {[self.fromDateTextField resignFirstResponder];}
-    else if ([self.toDateTextField isFirstResponder] && [touch view] != self.toDateTextField)
-    {[self.toDateTextField resignFirstResponder];}
-    [super touchesBegan:touches withEvent:event];
-}
-
-- (void) textFieldDidBeginEditing:(UITextField *)textField{
-    CGRect viewFrame = self.view.frame;
-    viewFrame.origin.y += -215;  /*specify the points to move the view up*/
-    
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:-10];
-    
-    [self.view setFrame:viewFrame];
-    
-    [UIView commitAnimations];
-}
-
 - (void) textFieldDidEndEditing:(UITextField *)textField
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -69,14 +42,14 @@
 
     if (textField.tag == 10) {
         textField.text = [dateFormatter stringFromDate:self.datePicker.date];
-        _fromDate = [self.datePicker.date dateByAddingTimeInterval:interval];
-        NSLog(@"%@", _fromDate);
+        _fromDateToShowRoute = [self.datePicker.date dateByAddingTimeInterval:interval];
+        NSLog(@"%@", _fromDateToShowRoute);
 
     }else
     {
        textField.text = [dateFormatter stringFromDate:self.datePicker.date];
-        _toDate = [self.datePicker.date dateByAddingTimeInterval:interval];
-        NSLog(@"%@", _toDate);
+        _toDateToShowRoute = [self.datePicker.date dateByAddingTimeInterval:interval];
+        NSLog(@"%@", _toDateToShowRoute);
 
     }
     
@@ -97,33 +70,6 @@
     [textField resignFirstResponder];
 }
 
-- (void) showUserRoute
-{
-    NSTimeZone *zone = [NSTimeZone localTimeZone];
-    NSInteger interval = [zone secondsFromGMTForDate:self.datePicker.date];
-    [[self routeArray] removeAllObjects];
-    NSMutableArray *tempArray;
-    if (_toDate == 0 || _fromDate == 0) {
-        
-        NSDate *startDate = [[NSDate date] dateByAddingTimeInterval:-60*60*24+interval];
-        NSDate *endDate = [[NSDate date] dateByAddingTimeInterval:interval];
-
-        tempArray = [[(YDWAppDelegate *)[[UIApplication sharedApplication] delegate] DB] searchPointsFromDate:startDate toDate:endDate];
-    }else
-    {
-        tempArray = [[(YDWAppDelegate *)[[UIApplication sharedApplication] delegate] DB] searchPointsFromDate:_fromDate toDate:_toDate];
-    }
-    (nil != [self routeLine])?[[self mapView] removeOverlay:[self routeLine ]]:nil;
-    [[self mapView] removeAnnotations:[[self mapView] annotations]];
-    for (Points *item in tempArray) {
-        YDWAnnotation *tempAnnotation = [[YDWAnnotation alloc] initWithCoordinates:CLLocationCoordinate2DMake([item.latitude doubleValue], [item.longtitude doubleValue]) title:[NSString stringWithFormat:@"%@", item.date] subTitle:@""];
-        [[self routeArray] addObject:tempAnnotation];
-        [self isAnnotationHide]?nil:[[self mapView] addAnnotation:tempAnnotation];
-    }
-    [self loadRoute];
-    (nil != [self routeLine])?[[self mapView] addOverlay:[self routeLine ]]:nil;
-    tempArray = Nil;
-}
 
 - (void)viewDidLoad
 {
@@ -132,6 +78,9 @@
     self.fromDateTextField.inputView = self.datePicker;
     self.toDateTextField.inputView = self.datePicker;
     
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:    UIApplicationDidEnterBackgroundNotification object:nil];
+
     //инициализация менеджера местоположения, с возможностью работы в фоне
     self.locationBackForeManager = [[YDWLocationUpdate alloc] init];
     //передача блока для работы НЕ в фоне
@@ -141,18 +90,10 @@
                 
                 //настройка даты для аннотации
                 NSDate *currentDate = [NSDate dateWithTimeIntervalSinceNow:[[NSTimeZone localTimeZone] secondsFromGMT]];
-//                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//                [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
-//                dateFormatter.dateFormat = @"dd-MM-yyyy HH:mm:ss";
-//                [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]];
-                
-                //создание новой аннотации
-//                YDWAnnotation *newAnnotation = [[YDWAnnotation alloc] initWithCoordinates:[location coordinate] title:[NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:currentDate]] subTitle:@""];
-                
-                
-                dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{     
+                    
                     //добавление точки в БД
-                    [[(YDWAppDelegate *)[[UIApplication sharedApplication] delegate] DB] addPointDate:currentDate coordinates:location.coordinate];
+                [[(YDWAppDelegate *)[[UIApplication sharedApplication] delegate] DB] addPointDate:currentDate coordinates:location.coordinate];
                 });
                 [self showUserRoute];
             });
@@ -162,16 +103,10 @@
     [self.locationBackForeManager setLocationUpdatedInBackground:^ (CLLocation *location) {
         dispatch_async(dispatch_get_main_queue(), ^{
             NSDate *currentDate = [NSDate dateWithTimeIntervalSinceNow:[[NSTimeZone localTimeZone] secondsFromGMT]];
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
-            dateFormatter.dateFormat = @"dd-MM-yyyy HH:mm:ss";
-            [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]];
-            YDWAnnotation *newAnnotation = [[YDWAnnotation alloc] initWithCoordinates:[location coordinate] title:[NSString stringWithFormat:@"%@", [[[NSDate alloc] init] description]] subTitle:@""];
-            dispatch_sync(dispatch_get_main_queue(), ^{
+            dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
                 //добавление точки в БД
                 [[(YDWAppDelegate *)[[UIApplication sharedApplication] delegate] DB] addPointDate:currentDate coordinates:location.coordinate];
             });
-            isAnnotationHide?nil:[[self mapView] addAnnotation:newAnnotation];
         });
         NSLog(@"%@", location);
     }];
@@ -193,19 +128,9 @@
 
 - (void) dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.mapView = nil;
     self.locationBackForeManager = nil;
-}
-
-- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated
-{
-	routeView.hidden = YES;
-}
-
-- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
-{
-	routeView.hidden = NO;
-	[routeView setNeedsDisplay];
 }
 
 - (void)didReceiveMemoryWarning
@@ -232,32 +157,106 @@
     }
 }
 
+
+
+#pragma MapView
+
+- (IBAction)changeMapType:(id)sender {
+    //изменение типа карты
+    switch ([sender selectedSegmentIndex]) {
+        case 0:
+            self.mapView.mapType = MKMapTypeStandard;
+            break;
+        case 1:
+            self.mapView.mapType = MKMapTypeSatellite;
+            break;
+        case 2:
+            self.mapView.mapType = MKMapTypeHybrid;
+            break;
+        default:
+            break;
+    }
+}
+
 - (IBAction)showWhereIAm:(id)sender {
     [self.mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
 }
 
-- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay
+- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated
 {
-	MKOverlayView* overlayView = nil;
-		if(nil == self.routeLineView)
-		{
-			self.routeLineView = [[MKPolylineView alloc] initWithPolyline:self.routeLine];
-			self.routeLineView.fillColor = [UIColor redColor];
-			self.routeLineView.strokeColor = [UIColor redColor];
-			self.routeLineView.lineWidth = 3;
-		}else
-        {
-            self.routeLineView = nil;
-            self.routeLineView = [[MKPolylineView alloc] initWithPolyline:self.routeLine];
-			self.routeLineView.fillColor = [UIColor redColor];
-			self.routeLineView.strokeColor = [UIColor redColor];
-			self.routeLineView.lineWidth = 3;
-        }
-		
-		overlayView = self.routeLineView;
-	
-	return overlayView;
-	
+	routeView.hidden = YES;
+}
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+{
+	routeView.hidden = NO;
+	[routeView setNeedsDisplay];
+}
+
+- (MKAnnotationView *) mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+    if([annotation isKindOfClass:[MKUserLocation class]] || [annotation isKindOfClass:[YDWAnnotation class]])
+        return nil;
+    
+    
+    NSString *annotationIdentifier = @"PinViewAnnotation";
+    
+    YDWCoffeAnnotation *pinView = (YDWCoffeAnnotation *) [mapView
+                                                          dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
+    
+    
+    if (!pinView)
+    {
+        pinView = [[YDWCoffeAnnotation alloc]
+                   initWithAnnotation:annotation
+                   reuseIdentifier:annotationIdentifier];
+        
+        //[pinView setPinColor:MKPinAnnotationColorPurple];
+        //pinView.animatesDrop = YES;
+        pinView.canShowCallout = YES;
+        
+        UIImageView *houseIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Beverage-Coffee-02.png"]];
+        [houseIconView setFrame:CGRectMake(0, 0, 30, 30)];
+        pinView.leftCalloutAccessoryView = houseIconView;
+        
+        houseIconView = nil;
+    }
+    else
+    {
+        pinView.annotation = annotation;
+    }
+    
+    return pinView;
+}
+
+#pragma Route
+
+- (void) showUserRoute
+{
+    NSTimeZone *zone = [NSTimeZone localTimeZone];
+    NSInteger interval = [zone secondsFromGMTForDate:self.datePicker.date];
+    [[self routeArray] removeAllObjects];
+    NSMutableArray *tempArray;
+    if (_toDateToShowRoute == 0 || _fromDateToShowRoute == 0) {
+        
+        NSDate *startDate = [[NSDate date] dateByAddingTimeInterval:-60*60*24+interval];
+        NSDate *endDate = [[NSDate date] dateByAddingTimeInterval:interval];
+        
+        tempArray = [[(YDWAppDelegate *)[[UIApplication sharedApplication] delegate] DB] searchPointsFromDate:startDate toDate:endDate];
+    }else
+    {
+        tempArray = [[(YDWAppDelegate *)[[UIApplication sharedApplication] delegate] DB] searchPointsFromDate:_fromDateToShowRoute toDate:_toDateToShowRoute];
+    }
+    (nil != [self routeLine])?[[self mapView] removeOverlay:[self routeLine ]]:nil;
+    [[self mapView] removeAnnotations:[[self mapView] annotations]];
+    for (Points *item in tempArray) {
+        YDWAnnotation *tempAnnotation = [[YDWAnnotation alloc] initWithCoordinates:CLLocationCoordinate2DMake([item.latitude doubleValue], [item.longtitude doubleValue]) title:[NSString stringWithFormat:@"%@", item.date] subTitle:@""];
+        [[self routeArray] addObject:tempAnnotation];
+        [self isAnnotationHide]?nil:[[self mapView] addAnnotation:tempAnnotation];
+    }
+    [self loadRoute];
+    (nil != [self routeLine])?[[self mapView] addOverlay:[self routeLine ]]:nil;
+    tempArray = Nil;
 }
 
 -(void) loadRoute
@@ -291,7 +290,7 @@
 		points[i] = point;
         
 	}
-
+    
 	self.routeLine = [MKPolyline polylineWithPoints:points count:self.routeArray.count];
     
 	_routeRect = MKMapRectMake(southWestPoint.x, southWestPoint.y, northEastPoint.x - southWestPoint.x, northEastPoint.y - southWestPoint.y);
@@ -299,64 +298,24 @@
 	
 }
 
--(void) zoomInOnRoute
+- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay
 {
-	[self.mapView setVisibleMapRect:_routeRect];
+	MKOverlayView* overlayView = nil;
+    self.routeLineView = nil;
+    self.routeLineView = [[MKPolylineView alloc] initWithPolyline:self.routeLine];
+	self.routeLineView.fillColor = [UIColor redColor];
+	self.routeLineView.strokeColor = [UIColor redColor];
+	self.routeLineView.lineWidth = 3;
+	overlayView = self.routeLineView;
+	
+	return overlayView;
+	
 }
 
 
-- (IBAction)changeMapType:(id)sender {
-    //изменение типа карты
-    switch ([sender selectedSegmentIndex]) {
-        case 0:
-            self.mapView.mapType = MKMapTypeStandard;
-            break;
-        case 1:
-            self.mapView.mapType = MKMapTypeSatellite;
-            break;
-        case 2:
-            self.mapView.mapType = MKMapTypeHybrid;
-            break;
-        default:
-            break;
-    }
-}
-
-
-- (IBAction)clearInterval:(id)sender
-{
-    self.fromDateTextField.text = @"";
-    self.toDateTextField.text = @"";
-    _fromDate = 0;
-    _toDate = 0;
-}
-- (IBAction)settingsAction:(id)sender {
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    YDWDBLogViewController *detailController = (YDWDBLogViewController *)[storyboard instantiateViewControllerWithIdentifier:@"logView"];
-    NSMutableArray *arr = [[(YDWAppDelegate *)[[UIApplication sharedApplication] delegate] DB] searchPointsFromDate:[[NSDate alloc] init] toDate:[[NSDate alloc] init]];
-    NSMutableArray *tempArray = [[NSMutableArray alloc] initWithCapacity:[arr count]];
-    for (Points *item in arr) {
-        [tempArray addObject:[NSString stringWithFormat:@"Date: %@ \ncoordinate: %@, \n%@ \n", item.date,
-                                              item.latitude, item.longtitude]];
-    }
-    detailController.arrayLog = tempArray;
-    [detailController setModalPresentationStyle:UIModalPresentationCurrentContext];
-    [self presentModalViewController:detailController animated:YES];
-    
-    if (nil != self.routeLine) {
-        [self.mapView removeOverlay:self.routeLine];
-        self.routeLine = nil;
-	}
-    [self loadRoute];
-	if (nil != self.routeLine) {
-		[self.mapView addOverlay:self.routeLine];
-	}
-	[self zoomInOnRoute];
-}
-
-- (IBAction)showHideAnnotations:(id)sender {
-    //показать/скрыть аннотации на карте
+#pragma annotations
+//показать/скрыть метки на карте
+- (IBAction)showAndHideAnnotation:(id)sender {
     if ([self.mapView.annotations count] > 1) {
         isAnnotationHide = YES;
         [[self mapView] removeAnnotations:[[self mapView] annotations]];
@@ -364,8 +323,73 @@
     {
         isAnnotationHide = NO;
         [self showUserRoute];
-       //[self.mapView addAnnotations:self.routeArray];
+        //[self.mapView addAnnotations:self.routeArray];
+    }
+}
+
+//очистка интервала выборки контрольных точек
+- (IBAction)clearInterval:(id)sender
+{
+    self.fromDateTextField.text = @"";
+    self.toDateTextField.text = @"";
+    _fromDateToShowRoute = 0;
+    _toDateToShowRoute = 0;
+    [self showUserRoute];
+}
+
+- (IBAction)showAllUserRoute:(id)sender {
+    [self zoomInOnRoute];
+}
+
+
+-(void) zoomInOnRoute
+{
+	[self.mapView setVisibleMapRect:_routeRect];
+}
+
+#pragma dataChooseTextField
+
+- (BOOL) textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [[event allTouches] anyObject];
+    if ([self.fromDateTextField isFirstResponder] && [touch view] != self.fromDateTextField)
+    {[self.fromDateTextField resignFirstResponder];}
+    else if ([self.toDateTextField isFirstResponder] && [touch view] != self.toDateTextField)
+    {[self.toDateTextField resignFirstResponder];}
+    [super touchesBegan:touches withEvent:event];
+}
+
+- (void) textFieldDidBeginEditing:(UITextField *)textField{
+    CGRect viewFrame = self.view.frame;
+    viewFrame.origin.y += -215;  /*specify the points to move the view up*/
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:-10];
+    
+    [self.view setFrame:viewFrame];
+    
+    [UIView commitAnimations];
+}
+
+#pragma I need coffe
+- (IBAction)showCoffe:(id)sender {
+    
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
+    {
+        SLComposeViewController *tweetSheet = [SLComposeViewController
+                                               composeViewControllerForServiceType:SLServiceTypeTwitter];
+        [tweetSheet setInitialText:@"Я отправляю этот твит из своего приложения! #demotweet"];
+        [self presentViewController:tweetSheet animated:YES completion:nil];
     }
     
 }
+
+
 @end

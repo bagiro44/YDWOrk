@@ -5,28 +5,26 @@
 //  Created by Dmitriy Remezov on 23.12.13.
 //  Copyright (c) 2013 Dmitriy Remezov. All rights reserved.
 //
+//  менеджер локаций кастомный
+//
 
 #import "YDWLocationUpdate.h"
 
-
-static CGFloat const kMinUpdateDistance = 10.f;
-static NSTimeInterval const kMinUpdateTime = 30.f;
-static NSTimeInterval const kMaxTimeToLive = 30.f;
-
 @implementation YDWLocationUpdate : NSObject
-
-
-#pragma mark - NSObject
 
 - (id)init {
     if (self = [super init]) {
+        
+        //настройка слушателя
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:    UIApplicationDidEnterBackgroundNotification object:nil];
+        
         //инициализация менеджера локации
         if ([CLLocationManager locationServicesEnabled]) {
-                self.locationManager = [[CLLocationManager alloc] init];
-                self.locationManager.delegate = self;
-                self.locationManager.distanceFilter = 500;
+            self.locationManager = [[CLLocationManager alloc] init];
+            self.locationManager.delegate = self;
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+            self.locationManager.distanceFilter = 100.0;
         }else{
             NSLog(@"Location service are not enabled.");
         }
@@ -39,7 +37,6 @@ static NSTimeInterval const kMaxTimeToLive = 30.f;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-#pragma mark - Notification handlers
 
 - (void)applicationDidBecomeActive {
     [self.locationManager stopMonitoringSignificantLocationChanges];
@@ -51,7 +48,6 @@ static NSTimeInterval const kMaxTimeToLive = 30.f;
     [self.locationManager startMonitoringSignificantLocationChanges];
 }
 
-#pragma mark - Public
 
 - (void)startUpdatingLocation {
     [self stopUpdatingLocation];
@@ -63,33 +59,54 @@ static NSTimeInterval const kMaxTimeToLive = 30.f;
     [self.locationManager stopMonitoringSignificantLocationChanges];
 }
 
-- (void)endBackgroundTask {
-    if (bgTask != UIBackgroundTaskInvalid) {
-        [[UIApplication sharedApplication] endBackgroundTask:bgTask];
-        bgTask = UIBackgroundTaskInvalid;
-    }
-}
-#pragma mark - Private
 
 - (BOOL)isInBackground {
     return [UIApplication sharedApplication].applicationState == UIApplicationStateBackground;
 }
 
-#pragma mark - CLLocationManager Delegate
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
-//    if (oldLocation && ([newLocation.timestamp timeIntervalSinceDate:oldLocation.timestamp] < kMinUpdateTime)) {
-//        return;
-//    }
     
+    //задержка работы менеджера геолокации в зависимости от скорости перемещения
+    if ([newLocation.timestamp timeIntervalSinceDate:oldLocation.timestamp] < 4.0) {
+        [self stopUpdatingLocation];
+        double delayInSeconds = 30.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self startUpdatingLocation];
+        });
+    }else if ([newLocation.timestamp timeIntervalSinceDate:oldLocation.timestamp]< 8.0)
+    {
+        [self stopUpdatingLocation];
+        double delayInSeconds = 45.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self startUpdatingLocation];
+        });
+    }else if ([newLocation.timestamp timeIntervalSinceDate:oldLocation.timestamp] < 16.0)
+    {
+        [self stopUpdatingLocation];
+        double delayInSeconds = 60.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self startUpdatingLocation];
+        });
+    }else if([newLocation.timestamp timeIntervalSinceDate:oldLocation.timestamp] < 32.0)
+    {
+        [self stopUpdatingLocation];
+        double delayInSeconds = 90.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self startUpdatingLocation];
+        });
+    }
+    
+    NSLog(@"%f",[newLocation.timestamp timeIntervalSinceDate:oldLocation.timestamp]);
+    
+    //выпролнение блоков, заданных при инициализации
     if ([self isInBackground]) {
         if (self.locationUpdatedInBackground) {
-            bgTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler: ^{
-                [[UIApplication sharedApplication] endBackgroundTask:bgTask];
-            }];
-            
             self.locationUpdatedInBackground(newLocation);
-            [self endBackgroundTask];
         }
     } else {
         if (self.locationUpdatedInForeground) {

@@ -12,7 +12,12 @@
 		771E895E18698FE200E5FB85 /* DataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 771E895D18698FE200E5FB85 /* DataSource.m */; };
 		771E896E1869E28500E5FB85 /* YDWDBLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 771E896D1869E28500E5FB85 /* YDWDBLogViewController.m */; };
 		771E897A186A140400E5FB85 /* Points.m in Sources */ = {isa = PBXBuildFile; fileRef = 771E8979186A140400E5FB85 /* Points.m */; };
-		771E897D186A374100E5FB85 /* YDWFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 771E897C186A374100E5FB85 /* YDWFilterViewController.m */; };
+		771E8980186A7E6600E5FB85 /* GPS-Tracking.png in Resources */ = {isa = PBXBuildFile; fileRef = 771E897E186A7E6600E5FB85 /* GPS-Tracking.png */; };
+		771E8981186A7E6600E5FB85 /* Maps.png in Resources */ = {isa = PBXBuildFile; fileRef = 771E897F186A7E6600E5FB85 /* Maps.png */; };
+		77830AC51882EDDD0065EDFE /* Beverage-Coffee-02.png in Resources */ = {isa = PBXBuildFile; fileRef = 77830AC31882EDDD0065EDFE /* Beverage-Coffee-02.png */; };
+		77830AC61882EDDD0065EDFE /* Beverage-Coffee-022.png in Resources */ = {isa = PBXBuildFile; fileRef = 77830AC41882EDDD0065EDFE /* Beverage-Coffee-022.png */; };
+		77830AC91882EED60065EDFE /* YDWCoffeAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 77830AC81882EED60065EDFE /* YDWCoffeAnnotation.m */; };
+		77830ACC188304170065EDFE /* YDWCoffeSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 77830ACB188304170065EDFE /* YDWCoffeSearch.m */; };
 		77D9FB2D18646C920001B8B0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D9FB2C18646C920001B8B0 /* Foundation.framework */; };
 		77D9FB2F18646C920001B8B0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D9FB2E18646C920001B8B0 /* CoreGraphics.framework */; };
 		77D9FB3118646C920001B8B0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D9FB3018646C920001B8B0 /* UIKit.framework */; };
@@ -58,8 +63,14 @@
 		771E896D1869E28500E5FB85 /* YDWDBLogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YDWDBLogViewController.m; sourceTree = "<group>"; };
 		771E8978186A140400E5FB85 /* Points.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Points.h; sourceTree = "<group>"; };
 		771E8979186A140400E5FB85 /* Points.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Points.m; sourceTree = "<group>"; };
-		771E897B186A374100E5FB85 /* YDWFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YDWFilterViewController.h; path = ../YDWFilterViewController.h; sourceTree = "<group>"; };
-		771E897C186A374100E5FB85 /* YDWFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YDWFilterViewController.m; path = ../YDWFilterViewController.m; sourceTree = "<group>"; };
+		771E897E186A7E6600E5FB85 /* GPS-Tracking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GPS-Tracking.png"; sourceTree = "<group>"; };
+		771E897F186A7E6600E5FB85 /* Maps.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Maps.png; sourceTree = "<group>"; };
+		77830AC31882EDDD0065EDFE /* Beverage-Coffee-02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Beverage-Coffee-02.png"; sourceTree = "<group>"; };
+		77830AC41882EDDD0065EDFE /* Beverage-Coffee-022.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Beverage-Coffee-022.png"; sourceTree = "<group>"; };
+		77830AC71882EED60065EDFE /* YDWCoffeAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YDWCoffeAnnotation.h; path = Resources/YDWCoffeAnnotation.h; sourceTree = "<group>"; };
+		77830AC81882EED60065EDFE /* YDWCoffeAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YDWCoffeAnnotation.m; path = Resources/YDWCoffeAnnotation.m; sourceTree = "<group>"; };
+		77830ACA188304170065EDFE /* YDWCoffeSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YDWCoffeSearch.h; sourceTree = "<group>"; };
+		77830ACB188304170065EDFE /* YDWCoffeSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YDWCoffeSearch.m; sourceTree = "<group>"; };
 		77D9FB2918646C920001B8B0 /* YandxDemoWOrk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YandxDemoWOrk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77D9FB2C18646C920001B8B0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		77D9FB2E18646C920001B8B0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -117,6 +128,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		77830ACD188304230065EDFE /* coffe */ = {
+			isa = PBXGroup;
+			children = (
+				77830AC71882EED60065EDFE /* YDWCoffeAnnotation.h */,
+				77830AC81882EED60065EDFE /* YDWCoffeAnnotation.m */,
+				77830ACA188304170065EDFE /* YDWCoffeSearch.h */,
+				77830ACB188304170065EDFE /* YDWCoffeSearch.m */,
+			);
+			name = coffe;
+			sourceTree = "<group>";
+		};
 		77D9FB2018646C920001B8B0 = {
 			isa = PBXGroup;
 			children = (
@@ -153,6 +175,7 @@
 		77D9FB3218646C920001B8B0 /* YandxDemoWOrk */ = {
 			isa = PBXGroup;
 			children = (
+				77830ACD188304230065EDFE /* coffe */,
 				77D9FB6118646CD30001B8B0 /* Resources */,
 				77D9FB3B18646C920001B8B0 /* YDWAppDelegate.h */,
 				77D9FB3C18646C920001B8B0 /* YDWAppDelegate.m */,
@@ -162,8 +185,6 @@
 				77D9FB4118646C920001B8B0 /* YDWViewController.h */,
 				77D9FB4218646C920001B8B0 /* YDWViewController.m */,
 				77F7A8DA18674C260095C2F1 /* TrackPointsDB.xcdatamodeld */,
-				771E897B186A374100E5FB85 /* YDWFilterViewController.h */,
-				771E897C186A374100E5FB85 /* YDWFilterViewController.m */,
 				771E8978186A140400E5FB85 /* Points.h */,
 				771E8979186A140400E5FB85 /* Points.m */,
 				77D9FB68186478870001B8B0 /* YDWAnnotation.h */,
@@ -212,6 +233,10 @@
 		77D9FB6118646CD30001B8B0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				77830AC31882EDDD0065EDFE /* Beverage-Coffee-02.png */,
+				77830AC41882EDDD0065EDFE /* Beverage-Coffee-022.png */,
+				771E897E186A7E6600E5FB85 /* GPS-Tracking.png */,
+				771E897F186A7E6600E5FB85 /* Maps.png */,
 				77F7A8D8186733EC0095C2F1 /* curLocation.png */,
 				77F7A8D6186730330095C2F1 /* GPS-Settings.png */,
 				77D9FB6218646CD30001B8B0 /* Settings.png */,
@@ -296,9 +321,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				771E8980186A7E6600E5FB85 /* GPS-Tracking.png in Resources */,
 				77D9FB6318646CD30001B8B0 /* Settings.png in Resources */,
 				77D9FB4518646C920001B8B0 /* Images.xcassets in Resources */,
 				77D9FB3718646C920001B8B0 /* InfoPlist.strings in Resources */,
+				77830AC51882EDDD0065EDFE /* Beverage-Coffee-02.png in Resources */,
+				77830AC61882EDDD0065EDFE /* Beverage-Coffee-022.png in Resources */,
+				771E8981186A7E6600E5FB85 /* Maps.png in Resources */,
 				77F7A8D9186733EC0095C2F1 /* curLocation.png in Resources */,
 				77D9FB4018646C920001B8B0 /* Main.storyboard in Resources */,
 				77F7A8D7186730330095C2F1 /* GPS-Settings.png in Resources */,
@@ -320,16 +349,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77830ACC188304170065EDFE /* YDWCoffeSearch.m in Sources */,
 				771E89581869820F00E5FB85 /* UNRouteView.m in Sources */,
 				77D9FB3918646C920001B8B0 /* main.m in Sources */,
 				77F7A8DC18674C260095C2F1 /* TrackPointsDB.xcdatamodeld in Sources */,
 				771E897A186A140400E5FB85 /* Points.m in Sources */,
 				771E896E1869E28500E5FB85 /* YDWDBLogViewController.m in Sources */,
-				771E897D186A374100E5FB85 /* YDWFilterViewController.m in Sources */,
 				77D9FB6A186478880001B8B0 /* YDWAnnotation.m in Sources */,
 				77D9FB3D18646C920001B8B0 /* YDWAppDelegate.m in Sources */,
 				771E895B186982D200E5FB85 /* YDWLocationUpdate.m in Sources */,
 				77D9FB4318646C920001B8B0 /* YDWViewController.m in Sources */,
+				77830AC91882EED60065EDFE /* YDWCoffeAnnotation.m in Sources */,
 				771E895E18698FE200E5FB85 /* DataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

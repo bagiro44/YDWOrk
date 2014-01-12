@@ -15,13 +15,16 @@
 @interface YDWViewController : UIViewController <UIToolbarDelegate, MKMapViewDelegate, CLLocationManagerDelegate, UITextFieldDelegate>
 {
     MKMapRect _routeRect;
-    NSDate* _fromDate;
-    NSDate* _toDate;
+    NSDate* _fromDateToShowRoute;
+    NSDate* _toDateToShowRoute;
 }
 
 
-- (IBAction)settingsAction:(id)sender;
-- (IBAction)showHideAnnotations:(id)sender;
+
+- (IBAction)showCoffe:(id)sender;
+- (IBAction)showAllUserRoute:(id)sender;
+- (IBAction)showAndHideAnnotation:(id)sender;
+
 
 @property BOOL isAnnotationHide;
 

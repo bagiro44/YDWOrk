@@ -5,6 +5,7 @@
 //  Created by Dmitriy Remezov on 02.10.13.
 //  Copyright (c) 2013 Dmitriy Remezov. All rights reserved.
 //
+//  класс для работы с БД
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>

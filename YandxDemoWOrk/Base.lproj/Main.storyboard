@@ -17,16 +17,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <items>
-                                    <barButtonItem systemItem="action" id="WAR-8C-OrV">
-                                        <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <connections>
-                                            <action selector="showHideAnnotations:" destination="vXZ-lx-hvc" id="Nol-hK-PyF"/>
-                                        </connections>
-                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="61o-ZG-r9r"/>
                                     <barButtonItem style="plain" id="kP3-mN-96Y">
                                         <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="z8P-8y-ntU">
-                                            <rect key="frame" x="63" y="7" width="194" height="30"/>
+                                            <rect key="frame" x="52" y="7" width="194" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <segments>
                                                 <segment title="Схема"/>
@@ -39,11 +33,10 @@
                                             </connections>
                                         </segmentedControl>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="eie-4y-1cP"/>
-                                    <barButtonItem systemItem="refresh" id="0gG-CG-pFG">
+                                    <barButtonItem image="Beverage-Coffee-022.png" id="WAR-8C-OrV">
                                         <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
-                                            <action selector="settingsAction:" destination="vXZ-lx-hvc" id="32O-Mo-3bA"/>
+                                            <action selector="showCoffe:" destination="vXZ-lx-hvc" id="mpa-M1-Meh"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -68,7 +61,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="TOJ-TO-BaF">
-                                <rect key="frame" x="104" y="436" width="112" height="30"/>
+                                <rect key="frame" x="179" y="436" width="112" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Сброс фильтра">
                                     <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -108,6 +101,26 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="93n-SN-NgM">
+                                <rect key="frame" x="20" y="428" width="46" height="46"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="Maps.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showAndHideAnnotation:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="uXN-mA-kzk"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Xo5-jF-eLs">
+                                <rect key="frame" x="106" y="428" width="46" height="46"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="GPS-Tracking.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showAllUserRoute:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ZdS-cB-06u"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -165,6 +178,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Beverage-Coffee-022.png" width="48" height="48"/>
+        <image name="GPS-Tracking.png" width="48" height="48"/>
+        <image name="Maps.png" width="48" height="48"/>
         <image name="curLocation.png" width="20" height="20"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
