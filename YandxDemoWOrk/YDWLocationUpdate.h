@@ -11,8 +11,12 @@
 typedef void(^locationHandler)(CLLocation *location);
 
 @interface YDWLocationUpdate : NSObject <CLLocationManagerDelegate>
+{
+    @private UIBackgroundTaskIdentifier bgTask;
+}
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
+
 
 @property (nonatomic, copy) locationHandler locationUpdatedInForeground;
 @property (nonatomic, copy) locationHandler locationUpdatedInBackground;
