@@ -8,11 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import "YDWAnnotation.h"
+#import "YDWCoffeAnnot.h"
 
 @interface YDWCoffeSearch : NSObject
 
 @property (nonatomic) CLLocationCoordinate2D coordinate;
-@property (nonatomic, copy) NSMutableArray *caffePlaces;
+@property (nonatomic, strong) NSMutableDictionary *caffePlacesDictionary;
+@property (nonatomic, strong) NSMutableArray *caffePlaces;
 
 
 - (id) initWithLocation:(CLLocationCoordinate2D)location;

@@ -11,6 +11,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "UNRouteView.h"
 #import "YDWLocationUpdate.h"
+#import "YDWCoffeSearch.h"
 
 @interface YDWViewController : UIViewController <UIToolbarDelegate, MKMapViewDelegate, CLLocationManagerDelegate, UITextFieldDelegate>
 {

@@ -1,17 +1,16 @@
 //
-//  YDWAnnotation.h
+//  YDWCoffeAnnot.h
 //  YandxDemoWOrk
 //
-//  Created by Dmitriy Remezov on 20.12.13.
-//  Copyright (c) 2013 Dmitriy Remezov. All rights reserved.
+//  Created by Dmitriy Remezov on 13.01.14.
+//  Copyright (c) 2014 Dmitriy Remezov. All rights reserved.
 //
-//  
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface YDWAnnotation : NSObject <MKAnnotation>
+@interface YDWCoffeAnnot : NSObject <MKAnnotation>
 
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 @property (nonatomic, copy) NSString *title;

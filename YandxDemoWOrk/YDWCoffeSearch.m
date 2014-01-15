@@ -7,6 +7,7 @@
 //
 
 #import "YDWCoffeSearch.h"
+//#import "YDWCoffeAnnot.m"
 
 @implementation YDWCoffeSearch
 
@@ -20,6 +21,7 @@
     self = [super init];
     if (self != nil)
     {
+        self.caffePlaces = [[NSMutableArray alloc] init];
         self.coordinate = location;
     }
     return self;
@@ -27,21 +29,27 @@
 
 - (void) searchCaffe
 {
-    //запрос на получение наименования местности
-    NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%f,%f&radius=1000&types=cafe&sensor=false&key=AIzaSyBvPFoi7u9PRayKCp646i8zonRGipBsyQ0", self.coordinate.latitude, self.coordinate.longitude];
-    NSLog(@"%@", urlString);
-    NSURL *url = [[NSURL alloc] initWithString:urlString];
-    urlString = NULL;
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:30.f];
-    url = Nil;
-    NSURLResponse *response;
-    NSError *error;
-    NSData *data = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
-    
-    
-    NSMutableDictionary  * json = [NSJSONSerialization JSONObjectWithData:data options: NSJSONReadingMutableContainers error: &error];
-    
 
+    __block NSData *googleData = [[NSData alloc] init];
+    NSString *urlAsString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%f,%f&radius=1000&types=cafe&sensor=false&key=AIzaSyBvPFoi7u9PRayKCp646i8zonRGipBsyQ0", self.coordinate.latitude, self.coordinate.longitude];
+    NSLog(@"%@", urlAsString);
+    NSURL *url = [NSURL URLWithString:urlAsString];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+    NSURLResponse *response = nil;
+    NSError *error = nil;
+    googleData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
+    if (googleData != nil)
+    {
+        self.caffePlacesDictionary = [NSJSONSerialization JSONObjectWithData:googleData options: NSJSONReadingMutableContainers error: &error];
+        NSArray * result = self.caffePlacesDictionary[@"results"];
+        
+        for(NSDictionary * dict in result)
+        {
+            YDWCoffeAnnot* newCaffe = [[YDWCoffeAnnot alloc] initWithCoordinates:CLLocationCoordinate2DMake([[[[dict valueForKey:@"geometry"] valueForKey:@"location"] valueForKey:@"lat"] doubleValue], [[[[dict valueForKey:@"geometry"] valueForKey:@"location"] valueForKey:@"lng"] doubleValue]) title:[dict valueForKey:@"name"] subTitle:[dict valueForKey:@"vicinity"]];
+            [self.caffePlaces addObject:newCaffe];
+        }
+    }
+    
 }
 
 @end

@@ -16,7 +16,7 @@
     if (self != nil)
     {
         CGRect frame = self.frame;
-        frame.size = CGSizeMake(60.0, 85.0);
+        frame.size = CGSizeMake(30.0, 35.0);
         self.frame = frame;
         self.backgroundColor = [UIColor clearColor];
         self.centerOffset = CGPointMake(-5, -5);
@@ -26,7 +26,7 @@
 
 -(void) drawRect:(CGRect)rect
 {
-    [[UIImage imageNamed:@"Beverage-Coffee-02.png"] drawInRect:CGRectMake(30, 30.0, 30.0, 30.0)];
+    [[UIImage imageNamed:@"Beverage-Coffee-02.png"] drawInRect:CGRectMake(0, 0.0, 30.0, 30.0)];
 }
 
 @end

@@ -195,31 +195,22 @@
 
 - (MKAnnotationView *) mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
-    if([annotation isKindOfClass:[MKUserLocation class]] || [annotation isKindOfClass:[YDWAnnotation class]])
+    if([annotation isKindOfClass:[MKUserLocation class]] || ([annotation isKindOfClass:[YDWAnnotation class]]))
         return nil;
     
     
     NSString *annotationIdentifier = @"PinViewAnnotation";
     
     YDWCoffeAnnotation *pinView = (YDWCoffeAnnotation *) [mapView
-                                                          dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
-    
+                                                          dequeueReusableAnnotationViewWithIdentifier:
+                                                          annotationIdentifier];
     
     if (!pinView)
     {
         pinView = [[YDWCoffeAnnotation alloc]
                    initWithAnnotation:annotation
                    reuseIdentifier:annotationIdentifier];
-        
-        //[pinView setPinColor:MKPinAnnotationColorPurple];
-        //pinView.animatesDrop = YES;
         pinView.canShowCallout = YES;
-        
-        UIImageView *houseIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Beverage-Coffee-02.png"]];
-        [houseIconView setFrame:CGRectMake(0, 0, 30, 30)];
-        pinView.leftCalloutAccessoryView = houseIconView;
-        
-        houseIconView = nil;
     }
     else
     {
@@ -248,7 +239,7 @@
         tempArray = [[(YDWAppDelegate *)[[UIApplication sharedApplication] delegate] DB] searchPointsFromDate:_fromDateToShowRoute toDate:_toDateToShowRoute];
     }
     (nil != [self routeLine])?[[self mapView] removeOverlay:[self routeLine ]]:nil;
-    [[self mapView] removeAnnotations:[[self mapView] annotations]];
+    [[self mapView] removeAnnotations:[self routeArray]];
     for (Points *item in tempArray) {
         YDWAnnotation *tempAnnotation = [[YDWAnnotation alloc] initWithCoordinates:CLLocationCoordinate2DMake([item.latitude doubleValue], [item.longtitude doubleValue]) title:[NSString stringWithFormat:@"%@", item.date] subTitle:@""];
         [[self routeArray] addObject:tempAnnotation];
@@ -318,7 +309,7 @@
 - (IBAction)showAndHideAnnotation:(id)sender {
     if ([self.mapView.annotations count] > 1) {
         isAnnotationHide = YES;
-        [[self mapView] removeAnnotations:[[self mapView] annotations]];
+        [[self mapView] removeAnnotations:self.routeArray];
     }else
     {
         isAnnotationHide = NO;
@@ -380,15 +371,15 @@
 
 #pragma I need coffe
 - (IBAction)showCoffe:(id)sender {
-    
-    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
-    {
-        SLComposeViewController *tweetSheet = [SLComposeViewController
-                                               composeViewControllerForServiceType:SLServiceTypeTwitter];
-        [tweetSheet setInitialText:@"Я отправляю этот твит из своего приложения! #demotweet"];
-        [self presentViewController:tweetSheet animated:YES completion:nil];
-    }
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[self mapView] removeAnnotations:[self.mapView annotations]];
+        [self.mapView addAnnotations:self.routeArray];
+        YDWCoffeSearch *coffeObject = [[YDWCoffeSearch alloc] initWithLocation:[[self.locationBackForeManager.locationManager location] coordinate]];
+        
+        [coffeObject searchCaffe];
+        [[self mapView] addAnnotations:coffeObject.caffePlaces];
+
+    });
 }
 
 
