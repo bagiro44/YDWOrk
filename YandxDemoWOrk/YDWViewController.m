@@ -314,7 +314,7 @@
     {
         isAnnotationHide = NO;
         [self showUserRoute];
-        //[self.mapView addAnnotations:self.routeArray];
+        [self.mapView addAnnotations:self.routeArray];
     }
 }
 
@@ -372,12 +372,13 @@
 #pragma I need coffe
 - (IBAction)showCoffe:(id)sender {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[self mapView] removeAnnotations:[self.mapView annotations]];
-        [self.mapView addAnnotations:self.routeArray];
-        YDWCoffeSearch *coffeObject = [[YDWCoffeSearch alloc] initWithLocation:[[self.locationBackForeManager.locationManager location] coordinate]];
-        
-        [coffeObject searchCaffe];
-        [[self mapView] addAnnotations:coffeObject.caffePlaces];
+//        
+//        [[self mapView] removeAnnotations:[self.mapView annotations]];
+//        [self.mapView addAnnotations:self.routeArray];
+//        YDWCoffeSearch *coffeObject = [[YDWCoffeSearch alloc] initWithLocation:[[self.locationBackForeManager.locationManager location] coordinate]];
+//        
+//        [coffeObject searchCaffe];
+//        [[self mapView] addAnnotations:coffeObject.caffePlaces];
 
     });
 }

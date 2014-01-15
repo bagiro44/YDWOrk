@@ -77,35 +77,35 @@
     if (![self isInBackground])
     {
         if ([newLocation.timestamp timeIntervalSinceDate:oldLocation.timestamp] < 4.0) {
-            [self stopUpdatingLocation];
+            //[self stopUpdatingLocation];
             double delayInSeconds = 30.0;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [self startUpdatingLocation];
+                //[self startUpdatingLocation];
             });
         }else if ([newLocation.timestamp timeIntervalSinceDate:oldLocation.timestamp]< 8.0)
         {
-            [self stopUpdatingLocation];
+            //[self stopUpdatingLocation];
             double delayInSeconds = 45.0;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [self startUpdatingLocation];
+                //[self startUpdatingLocation];
             });
         }else if ([newLocation.timestamp timeIntervalSinceDate:oldLocation.timestamp] < 16.0)
         {
-            [self stopUpdatingLocation];
+            //[self stopUpdatingLocation];
             double delayInSeconds = 60.0;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [self startUpdatingLocation];
+                //[self startUpdatingLocation];
             });
         }else if([newLocation.timestamp timeIntervalSinceDate:oldLocation.timestamp] < 32.0)
         {
-            [self stopUpdatingLocation];
+            //[self stopUpdatingLocation];
             double delayInSeconds = 90.0;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [self startUpdatingLocation];
+                //[self startUpdatingLocation];
             });
         }
 
