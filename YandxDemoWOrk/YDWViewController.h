@@ -28,6 +28,7 @@
 
 
 @property BOOL isAnnotationHide;
+@property BOOL isCoffeHide;
 
 @property (strong, nonatomic) YDWLocationUpdate *locationBackForeManager;
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
@@ -41,10 +42,12 @@
 @property (nonatomic, retain) MKPolyline* routeLine;
 @property (nonatomic, retain) MKPolylineView* routeLineView;
 
+
 - (IBAction)showWhereIAm:(id)sender;
 - (IBAction)changeMapType:(id)sender;
 - (IBAction)clearInterval:(id)sender;
-- (void) showUserRoute;
+- (void)clearRouteAnnotation;
+- (void)showUserRoute;
 
 
 

@@ -31,10 +31,10 @@
 {
 
     __block NSData *googleData = [[NSData alloc] init];
-    NSString *urlAsString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%f,%f&radius=1000&types=cafe&sensor=false&key=AIzaSyBvPFoi7u9PRayKCp646i8zonRGipBsyQ0", self.coordinate.latitude, self.coordinate.longitude];
+    NSString *urlAsString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%f,%f&radius=1000&types=cafe&opennow=true&sensor=false&key=AIzaSyBvPFoi7u9PRayKCp646i8zonRGipBsyQ0", self.coordinate.latitude, self.coordinate.longitude];
     NSLog(@"%@", urlAsString);
     NSURL *url = [NSURL URLWithString:urlAsString];
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url cachePolicy:NULL timeoutInterval:20];
     NSURLResponse *response = nil;
     NSError *error = nil;
     googleData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];

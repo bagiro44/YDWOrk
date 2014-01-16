@@ -21,7 +21,9 @@
 @end
 
 @implementation YDWViewController
-@synthesize routeView, routeLine, routeLineView, isAnnotationHide;
+@synthesize routeView, routeLine, routeLineView, isAnnotationHide, isCoffeHide;
+
+
 
 - (UIBarPosition)positionForBar:(id <UIBarPositioning>)bar
 {
@@ -74,12 +76,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //инициализация массива для хранения отображаемого трека
+    self.routeArray = [[NSMutableArray alloc] init];
     self.datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, 162)];
     self.fromDateTextField.inputView = self.datePicker;
     self.toDateTextField.inputView = self.datePicker;
-    
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:    UIApplicationDidEnterBackgroundNotification object:nil];
+    [self showUserRoute];
+    isCoffeHide = YES;
 
     //инициализация менеджера местоположения, с возможностью работы в фоне
     self.locationBackForeManager = [[YDWLocationUpdate alloc] init];
@@ -113,9 +116,6 @@
     
     //запуск менеджера местоположения
     [self.locationBackForeManager startUpdatingLocation];
-    
-    //инициализация массива для хранения отображаемого трека
-    self.routeArray = [[NSMutableArray alloc] init];
     
     //назначаем делегат toolBar'у
 	self.toolBar.delegate = self;
@@ -229,7 +229,7 @@
     [[self routeArray] removeAllObjects];
     NSMutableArray *tempArray;
     if (_toDateToShowRoute == 0 || _fromDateToShowRoute == 0) {
-        
+        //показывает только точки за последние 24 часа
         NSDate *startDate = [[NSDate date] dateByAddingTimeInterval:-60*60*24+interval];
         NSDate *endDate = [[NSDate date] dateByAddingTimeInterval:interval];
         
@@ -239,7 +239,7 @@
         tempArray = [[(YDWAppDelegate *)[[UIApplication sharedApplication] delegate] DB] searchPointsFromDate:_fromDateToShowRoute toDate:_toDateToShowRoute];
     }
     (nil != [self routeLine])?[[self mapView] removeOverlay:[self routeLine ]]:nil;
-    [[self mapView] removeAnnotations:[self routeArray]];
+    [self clearRouteAnnotation];
     for (Points *item in tempArray) {
         YDWAnnotation *tempAnnotation = [[YDWAnnotation alloc] initWithCoordinates:CLLocationCoordinate2DMake([item.latitude doubleValue], [item.longtitude doubleValue]) title:[NSString stringWithFormat:@"%@", item.date] subTitle:@""];
         [[self routeArray] addObject:tempAnnotation];
@@ -307,14 +307,14 @@
 #pragma annotations
 //показать/скрыть метки на карте
 - (IBAction)showAndHideAnnotation:(id)sender {
-    if ([self.mapView.annotations count] > 1) {
+    if (isAnnotationHide == NO) {
         isAnnotationHide = YES;
-        [[self mapView] removeAnnotations:self.routeArray];
+        [self clearRouteAnnotation];
     }else
     {
         isAnnotationHide = NO;
         [self showUserRoute];
-        [self.mapView addAnnotations:self.routeArray];
+        //[self.mapView addAnnotations:self.routeArray];
     }
 }
 
@@ -336,6 +336,20 @@
 -(void) zoomInOnRoute
 {
 	[self.mapView setVisibleMapRect:_routeRect];
+}
+
+//удаление аннотаций маршрута с карты
+- (void)clearRouteAnnotation
+{
+    NSMutableArray *tempAnnotationArray = [self.mapView annotations];
+    for (int i =0; i<tempAnnotationArray.count; i++)
+    {
+        if ([[tempAnnotationArray objectAtIndex:i] isKindOfClass:[YDWAnnotation class]])
+        {
+            [[self mapView] removeAnnotation:[tempAnnotationArray objectAtIndex:i]];
+        }
+    }
+    tempAnnotationArray = nil;
 }
 
 #pragma dataChooseTextField
@@ -370,17 +384,30 @@
 }
 
 #pragma I need coffe
-- (IBAction)showCoffe:(id)sender {
-    dispatch_async(dispatch_get_main_queue(), ^{
-//        
-//        [[self mapView] removeAnnotations:[self.mapView annotations]];
-//        [self.mapView addAnnotations:self.routeArray];
-//        YDWCoffeSearch *coffeObject = [[YDWCoffeSearch alloc] initWithLocation:[[self.locationBackForeManager.locationManager location] coordinate]];
-//        
-//        [coffeObject searchCaffe];
-//        [[self mapView] addAnnotations:coffeObject.caffePlaces];
+- (IBAction)showCoffe:(id)sender
+{
+    if (isCoffeHide)
+    {
+        isCoffeHide = NO;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            
+            [[self mapView] removeAnnotations:[self.mapView annotations]];
+            [self.mapView addAnnotations:self.routeArray];
+            
+            YDWCoffeSearch *coffeObject = [[YDWCoffeSearch alloc] initWithLocation:[[self.locationBackForeManager.locationManager location] coordinate]];
+            [coffeObject searchCaffe];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[self mapView] addAnnotations:coffeObject.caffePlaces];
+                [self showUserRoute];
+            });
+        });
 
-    });
+    }else
+    {
+        isCoffeHide = YES;
+        [[self mapView] removeAnnotations:[self.mapView annotations]];
+        [self.mapView addAnnotations:self.routeArray];
+    }
 }
 
 
