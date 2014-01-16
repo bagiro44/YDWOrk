@@ -34,44 +34,6 @@
     return UIBarPositionTopAttached;
 }
 
-- (void) textFieldDidEndEditing:(UITextField *)textField
-{
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"dd.MM.yyyy HH:mm:ss";
-    
-    NSTimeZone *zone = [NSTimeZone localTimeZone];
-    NSInteger interval = [zone secondsFromGMTForDate:self.datePicker.date];
-
-    if (textField.tag == 10) {
-        textField.text = [dateFormatter stringFromDate:self.datePicker.date];
-        _fromDateToShowRoute = [self.datePicker.date dateByAddingTimeInterval:interval];
-        NSLog(@"%@", _fromDateToShowRoute);
-
-    }else
-    {
-       textField.text = [dateFormatter stringFromDate:self.datePicker.date];
-        _toDateToShowRoute = [self.datePicker.date dateByAddingTimeInterval:interval];
-        NSLog(@"%@", _toDateToShowRoute);
-
-    }
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self showUserRoute];
-    });
-    
-    CGRect viewFrame = self.view.frame;
-    viewFrame.origin.y += 215;
-    
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:-10];
-    
-    [self.view setFrame:viewFrame];
-    
-    [UIView commitAnimations];
-    [textField resignFirstResponder];
-}
-
 
 - (void)viewDidLoad
 {
@@ -222,7 +184,7 @@
 }
 
 #pragma Route
-
+//показать пройденный пользователем маршрут за заданный интервал
 - (void) showUserRoute
 {
     NSTimeZone *zone = [NSTimeZone localTimeZone];
@@ -239,7 +201,7 @@
     {
         tempArray = [[(YDWAppDelegate *)[[UIApplication sharedApplication] delegate] DB] searchPointsFromDate:_fromDateToShowRoute toDate:_toDateToShowRoute];
     }
-    (nil != [self routeLine])?[[self mapView] removeOverlay:[self routeLine ]]:nil;
+    (nil != [self routeLine])?[[self mapView] removeOverlay:[self routeLine]]:nil;
     [self clearRouteAnnotation];
     for (Points *item in tempArray) {
         YDWAnnotation *tempAnnotation = [[YDWAnnotation alloc] initWithCoordinates:CLLocationCoordinate2DMake([item.latitude doubleValue], [item.longtitude doubleValue]) title:[NSString stringWithFormat:@"%@", item.date] subTitle:@""];
@@ -251,6 +213,7 @@
     tempArray = Nil;
 }
 
+//создание линии для маршрута и выделение области с маршрутом
 -(void) loadRoute
 {
 	MKMapPoint northEastPoint;
@@ -290,6 +253,7 @@
 	
 }
 
+//добавить изображение маршрута на карту
 - (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay
 {
 	MKOverlayView* overlayView = nil;
@@ -329,11 +293,12 @@
     [self showUserRoute];
 }
 
+//показать весь пройденный маршрут
 - (IBAction)showAllUserRoute:(id)sender {
     [self zoomInOnRoute];
 }
 
-
+//показать участок карты с треком
 -(void) zoomInOnRoute
 {
 	[self.mapView setVisibleMapRect:_routeRect];
@@ -361,6 +326,7 @@
     return YES;
 }
 
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [[event allTouches] anyObject];
@@ -371,10 +337,50 @@
     [super touchesBegan:touches withEvent:event];
 }
 
+//выбраны даты выборки
+- (void) textFieldDidEndEditing:(UITextField *)textField
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"dd.MM.yyyy HH:mm:ss";
+    
+    NSTimeZone *zone = [NSTimeZone localTimeZone];
+    NSInteger interval = [zone secondsFromGMTForDate:self.datePicker.date];
+    
+    if (textField.tag == 10) {
+        textField.text = [dateFormatter stringFromDate:self.datePicker.date];
+        _fromDateToShowRoute = [self.datePicker.date dateByAddingTimeInterval:interval];
+        NSLog(@"%@", _fromDateToShowRoute);
+        
+    }else
+    {
+        textField.text = [dateFormatter stringFromDate:self.datePicker.date];
+        _toDateToShowRoute = [self.datePicker.date dateByAddingTimeInterval:interval];
+        NSLog(@"%@", _toDateToShowRoute);
+        
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self showUserRoute];
+    });
+    
+    CGRect viewFrame = self.view.frame;
+    viewFrame.origin.y += 215;
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:-10];
+    
+    [self.view setFrame:viewFrame];
+    
+    [UIView commitAnimations];
+    [textField resignFirstResponder];
+}
+
+
+//сдвигает вьюху чтобы показать пикер
 - (void) textFieldDidBeginEditing:(UITextField *)textField{
     CGRect viewFrame = self.view.frame;
-    viewFrame.origin.y += -215;  /*specify the points to move the view up*/
-    
+    viewFrame.origin.y += -215;     
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationBeginsFromCurrentState:YES];
     [UIView setAnimationDuration:-10];
@@ -385,6 +391,7 @@
 }
 
 #pragma I need coffe
+//показать ближайшие работающие кофейни
 - (IBAction)showCoffe:(id)sender
 {
     if (isCoffeHide)
