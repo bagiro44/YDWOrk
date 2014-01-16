@@ -404,10 +404,10 @@
                     dispatch_async(dispatch_get_main_queue(), ^{
                         UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"Нет данных" message:@"В данном месте нет открытых кафе поблизости" delegate:nil cancelButtonTitle:@"ОК" otherButtonTitles: nil];
                         [errorView show];
+                        [self showUserRoute];
                         [self.activityIndicator stopAnimating];
                         [sender setEnabled:YES];
                     });
-                    //return;
                     break;
                 }
                 case 1:
@@ -427,6 +427,7 @@
                     dispatch_async(dispatch_get_main_queue(), ^{
                         UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"Ошибка" message:@"Нет соединения с Интернетом, проверьте возможность доступа в сеть Интернет" delegate:nil cancelButtonTitle:@"ОК" otherButtonTitles: nil];
                         [errorView show];
+                        [self showUserRoute];
                         [self.activityIndicator stopAnimating];
                         [sender setEnabled:YES];
                         
