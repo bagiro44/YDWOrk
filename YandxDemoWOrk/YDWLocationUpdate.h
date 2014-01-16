@@ -23,6 +23,5 @@ typedef void(^locationHandler)(CLLocation *location);
 
 - (void)startUpdatingLocation;
 - (void)stopUpdatingLocation;
-- (void)AddAnnotationWithLocation:(CLLocation *)location;
 
 @end

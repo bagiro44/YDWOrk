@@ -35,7 +35,9 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (weak, nonatomic) IBOutlet UITextField *fromDateTextField;
 @property (weak, nonatomic) IBOutlet UITextField *toDateTextField;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) UIDatePicker *datePicker;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *showCaffeButton;
 
 @property (strong, nonatomic) UNRouteView *routeView;
 @property (strong, nonatomic) NSMutableArray *routeArray;

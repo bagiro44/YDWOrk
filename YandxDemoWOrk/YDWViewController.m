@@ -21,7 +21,7 @@
 @end
 
 @implementation YDWViewController
-@synthesize routeView, routeLine, routeLineView, isAnnotationHide, isCoffeHide;
+@synthesize routeView, routeLine, routeLineView, isAnnotationHide, isCoffeHide, showCaffeButton;
 
 
 
@@ -87,6 +87,7 @@
     //инициализация менеджера местоположения, с возможностью работы в фоне
     self.locationBackForeManager = [[YDWLocationUpdate alloc] init];
     //передача блока для работы НЕ в фоне
+    __weak id weakSelf = self;
     [self.locationBackForeManager setLocationUpdatedInForeground:^ (CLLocation *location) {
         if (location) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -98,7 +99,7 @@
                     //добавление точки в БД
                 [[(YDWAppDelegate *)[[UIApplication sharedApplication] delegate] DB] addPointDate:currentDate coordinates:location.coordinate];
                 });
-                [self showUserRoute];
+                [weakSelf showUserRoute];
             });
         }
     }];
@@ -227,7 +228,7 @@
     NSTimeZone *zone = [NSTimeZone localTimeZone];
     NSInteger interval = [zone secondsFromGMTForDate:self.datePicker.date];
     [[self routeArray] removeAllObjects];
-    NSMutableArray *tempArray;
+    NSArray *tempArray;
     if (_toDateToShowRoute == 0 || _fromDateToShowRoute == 0) {
         //показывает только точки за последние 24 часа
         NSDate *startDate = [[NSDate date] dateByAddingTimeInterval:-60*60*24+interval];
@@ -341,7 +342,7 @@
 //удаление аннотаций маршрута с карты
 - (void)clearRouteAnnotation
 {
-    NSMutableArray *tempAnnotationArray = [self.mapView annotations];
+    NSArray *tempAnnotationArray = [self.mapView annotations];
     for (int i =0; i<tempAnnotationArray.count; i++)
     {
         if ([[tempAnnotationArray objectAtIndex:i] isKindOfClass:[YDWAnnotation class]])
@@ -388,19 +389,54 @@
 {
     if (isCoffeHide)
     {
-        isCoffeHide = NO;
+        [sender setEnabled:NO];
+        [self.activityIndicator setHidden:NO];
+        [self.activityIndicator startAnimating];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             
             [[self mapView] removeAnnotations:[self.mapView annotations]];
             [self.mapView addAnnotations:self.routeArray];
             
             YDWCoffeSearch *coffeObject = [[YDWCoffeSearch alloc] initWithLocation:[[self.locationBackForeManager.locationManager location] coordinate]];
-            [coffeObject searchCaffe];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[self mapView] addAnnotations:coffeObject.caffePlaces];
-                [self showUserRoute];
-            });
-        });
+            switch ([coffeObject searchCaffe]) {
+                case 0:
+                {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"Нет данных" message:@"В данном месте нет открытых кафе поблизости" delegate:nil cancelButtonTitle:@"ОК" otherButtonTitles: nil];
+                        [errorView show];
+                        [self.activityIndicator stopAnimating];
+                        [sender setEnabled:YES];
+                    });
+                    //return;
+                    break;
+                }
+                case 1:
+                {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [[self mapView] addAnnotations:coffeObject.caffePlaces];
+                        [self showUserRoute];
+                        isCoffeHide = NO;
+                        [self.activityIndicator stopAnimating];
+                        [sender setEnabled:YES];
+                        
+                    });
+                    break;
+                }
+                case -1:
+                {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"Ошибка" message:@"Нет соединения с Интернетом, проверьте возможность доступа в сеть Интернет" delegate:nil cancelButtonTitle:@"ОК" otherButtonTitles: nil];
+                        [errorView show];
+                        [self.activityIndicator stopAnimating];
+                        [sender setEnabled:YES];
+                        
+                    });
+                    break;
+                }
+                default:
+                    break;
+            }
+                    });
 
     }else
     {

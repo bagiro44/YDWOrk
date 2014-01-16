@@ -19,7 +19,7 @@
 
 
 - (id) initWithLocation:(CLLocationCoordinate2D)location;
-- (void) searchCaffe;
+- (int) searchCaffe;
 
 
 @end

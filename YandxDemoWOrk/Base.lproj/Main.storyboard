@@ -49,6 +49,10 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="xXl-p5-8aj"/>
                                 </connections>
                             </mapView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="dKP-Z4-e11">
+                                <rect key="frame" x="20" y="29" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wUa-f2-gwq">
                                 <rect key="frame" x="266" y="323" width="25" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -127,8 +131,10 @@
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="dKP-Z4-e11" id="8Nj-z4-1Q7"/>
                         <outlet property="fromDateTextField" destination="Zsb-YW-bDL" id="22V-Au-bcF"/>
                         <outlet property="mapView" destination="qoU-7j-8MG" id="b4d-j4-7hw"/>
+                        <outlet property="showCaffeButton" destination="WAR-8C-OrV" id="zvJ-XL-qi6"/>
                         <outlet property="toDateTextField" destination="kpC-lT-ksa" id="NoB-VM-YoD"/>
                         <outlet property="toolBar" destination="fud-92-7Ok" id="Lsb-2b-jOT"/>
                     </connections>

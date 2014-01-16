@@ -11,7 +11,7 @@
 @implementation DataSource
 
 
-- (NSMutableArray *) searchPointsFromDate:(NSDate *)fromDate toDate:(NSDate *) toDate;
+- (NSArray *) searchPointsFromDate:(NSDate *)fromDate toDate:(NSDate *) toDate;
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *pointsEntity = [NSEntityDescription entityForName:@"Points" inManagedObjectContext:self.managedObjectContext];

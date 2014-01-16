@@ -20,6 +20,6 @@
 
 - (BOOL) addPointDate:(NSDate *)date coordinates:(CLLocationCoordinate2D)coordinates;
 - (BOOL) deletePoint:(Points *)point;
-- (NSMutableArray *) searchPointsFromDate:(NSDate *)fromDate toDate:(NSDate *) toDate;
+- (NSArray *) searchPointsFromDate:(NSDate *)fromDate toDate:(NSDate *) toDate;
 
 @end
