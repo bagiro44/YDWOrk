@@ -18,7 +18,7 @@
         //настройка слушателя
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:    UIApplicationDidEnterBackgroundNotification object:nil];
-        
+        isFirstLocationUpdate = YES;
         //инициализация менеджера локации
         if ([CLLocationManager locationServicesEnabled]) {
             self.locationManager = [[CLLocationManager alloc] init];
@@ -36,14 +36,14 @@
     return self;
 }
 
-- (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
-    UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"Ошибка" message:@"Нет доступа к сервису определения геопозиции. Проверьте настройки приватности для приложения." delegate:nil cancelButtonTitle:@"ОК" otherButtonTitles: nil];
-    [errorView show];
-    NSLog(@"Location service are not enabled.");
-    NSLog(@"Error: %@", error.description);
-    
-}
+//- (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+//{
+//    UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"Ошибка" message:@"Нет доступа к сервису определения геопозиции. Проверьте настройки приватности для приложения." delegate:nil cancelButtonTitle:@"ОК" otherButtonTitles: nil];
+//    [errorView show];
+//    NSLog(@"Location service are not enabled.");
+//    NSLog(@"Error: %@", error.description);
+//    
+//}
 
 
 - (void)dealloc {
@@ -88,6 +88,9 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+    if (([newLocation distanceFromLocation:oldLocation] > 50.0) || isFirstLocationUpdate)
+    {
+    isFirstLocationUpdate = NO;
     if ([CLLocationManager locationServicesEnabled]) {
         //задержка работы менеджера геолокации в зависимости от скорости перемещения
         if (![self isInBackground])
@@ -99,6 +102,7 @@
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
                     [self startUpdatingLocation];
                 });
+                return;
             }else if ([newLocation.timestamp timeIntervalSinceDate:oldLocation.timestamp]< 8.0)
             {
                 [self stopUpdatingLocation];
@@ -107,6 +111,7 @@
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
                     [self startUpdatingLocation];
                 });
+                return;
             }else if ([newLocation.timestamp timeIntervalSinceDate:oldLocation.timestamp] < 16.0)
             {
                 [self stopUpdatingLocation];
@@ -115,6 +120,7 @@
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
                     [self startUpdatingLocation];
                 });
+                return;
             }else if([newLocation.timestamp timeIntervalSinceDate:oldLocation.timestamp] < 32.0)
             {
                 [self stopUpdatingLocation];
@@ -123,26 +129,30 @@
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
                     [self startUpdatingLocation];
                 });
+                return;
             }
             
         }
         
         NSLog(@"%f",[newLocation.timestamp timeIntervalSinceDate:oldLocation.timestamp]);
         
-        //выпролнение блоков, заданных при инициализации
+        //выполнение блоков, заданных при инициализации
         if ([self isInBackground]) {
             if (self.locationUpdatedInBackground) {
                 bgTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler: ^{
                     [[UIApplication sharedApplication] endBackgroundTask:bgTask];
                 }];
                 self.locationUpdatedInBackground(newLocation);
+                NSLog(@"Add location in back");
                 [self endBackgroundTask];
             }
         } else {
             if (self.locationUpdatedInForeground) {
                 self.locationUpdatedInForeground(newLocation);
+                NSLog(@"Add location in fore");
             }
         }
+    }
     }
     
 }
