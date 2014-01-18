@@ -19,6 +19,8 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:    UIApplicationDidEnterBackgroundNotification object:nil];
         isFirstLocationUpdate = YES;
+        isWait = NO;
+        self.lastLocation = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(0, 0) altitude:0 horizontalAccuracy:0 verticalAccuracy:0 timestamp:[NSDate date]];
         //инициализация менеджера локации
         if ([CLLocationManager locationServicesEnabled]) {
             self.locationManager = [[CLLocationManager alloc] init];
@@ -64,12 +66,14 @@
 
 //начать обновлять местоположение
 - (void)startUpdatingLocation {
+    //NSLog(@"startUpdatingLocation ");
     [self stopUpdatingLocation];
     [self isInBackground] ? [self.locationManager startMonitoringSignificantLocationChanges] : [self.locationManager startUpdatingLocation];
 }
 
 //остановить обновление местоположения
 - (void)stopUpdatingLocation {
+    //NSLog(@"stopUpdatingLocation ");
     [self.locationManager stopUpdatingLocation];
     [self.locationManager stopMonitoringSignificantLocationChanges];
 }
@@ -88,53 +92,61 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
-    if (([newLocation distanceFromLocation:oldLocation] > 50.0) || isFirstLocationUpdate)
+    if ((([newLocation distanceFromLocation:self.lastLocation] > 50.0) && !isWait)|| isFirstLocationUpdate )
     {
     isFirstLocationUpdate = NO;
     if ([CLLocationManager locationServicesEnabled]) {
         //задержка работы менеджера геолокации в зависимости от скорости перемещения
         if (![self isInBackground])
         {
-            if ([newLocation.timestamp timeIntervalSinceDate:oldLocation.timestamp] < 4.0) {
+            if ([newLocation.timestamp timeIntervalSinceDate:self.lastLocation.timestamp] < 4.0) {
                 [self stopUpdatingLocation];
-                double delayInSeconds = 30.0;
+                double delayInSeconds = 35.0;
+                isWait = YES;
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
                     [self startUpdatingLocation];
+                    isWait = NO;
                 });
-                return;
-            }else if ([newLocation.timestamp timeIntervalSinceDate:oldLocation.timestamp]< 8.0)
+                //return;
+            }else if ([newLocation.timestamp timeIntervalSinceDate:self.lastLocation.timestamp]< 8.0)
             {
                 [self stopUpdatingLocation];
                 double delayInSeconds = 45.0;
+                isWait = YES;
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
                     [self startUpdatingLocation];
+                    isWait = NO;
                 });
-                return;
-            }else if ([newLocation.timestamp timeIntervalSinceDate:oldLocation.timestamp] < 16.0)
+                //return;
+            }else if ([newLocation.timestamp timeIntervalSinceDate:self.lastLocation.timestamp] < 16.0)
             {
                 [self stopUpdatingLocation];
                 double delayInSeconds = 60.0;
+                isWait = YES;
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
                     [self startUpdatingLocation];
+                    isWait = NO;
                 });
-                return;
-            }else if([newLocation.timestamp timeIntervalSinceDate:oldLocation.timestamp] < 32.0)
+                //return;
+            }else if([newLocation.timestamp timeIntervalSinceDate:self.lastLocation.timestamp] < 32.0)
             {
                 [self stopUpdatingLocation];
                 double delayInSeconds = 90.0;
+                isWait =YES;
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
                     [self startUpdatingLocation];
+                    isWait = NO;
                 });
-                return;
+                //return;
             }
             
         }
         
-        NSLog(@"%f",[newLocation.timestamp timeIntervalSinceDate:oldLocation.timestamp]);
+        NSLog(@"%f",[newLocation.timestamp timeIntervalSinceDate:self.lastLocation.timestamp]);
         
         //выполнение блоков, заданных при инициализации
         if ([self isInBackground]) {
@@ -143,11 +155,13 @@
                     [[UIApplication sharedApplication] endBackgroundTask:bgTask];
                 }];
                 self.locationUpdatedInBackground(newLocation);
+                self.lastLocation = newLocation;
                 NSLog(@"Add location in back");
                 [self endBackgroundTask];
             }
         } else {
             if (self.locationUpdatedInForeground) {
+                self.lastLocation = newLocation;
                 self.locationUpdatedInForeground(newLocation);
                 NSLog(@"Add location in fore");
             }

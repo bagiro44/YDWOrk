@@ -14,9 +14,11 @@ typedef void(^locationHandler)(CLLocation *location);
 {
     @private UIBackgroundTaskIdentifier bgTask;
     bool isFirstLocationUpdate;
+    bool isWait;
 }
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) CLLocation *lastLocation;
 
 
 @property (nonatomic, copy) locationHandler locationUpdatedInForeground;
